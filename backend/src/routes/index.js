@@ -1,0 +1,26 @@
+import {Router} from 'express';
+import {login,register,me,refresh,logout} from '../controllers/auth.js';
+import * as products from '../controllers/products.js';
+import * as enquiries from '../controllers/enquiries.js';
+import * as inventory from '../controllers/inventory.js';
+import * as orders from '../controllers/orders.js';
+import * as admin from '../controllers/admin.js';
+import * as categories from '../controllers/categories.js';
+import {auth,requireRole} from '../middleware/auth.js';
+import {authLimiter,writeLimiter} from '../middleware/security.js';
+import {claimIdempotency} from '../middleware/idempotency.js';
+import {ok} from '../utils/api.js';
+import {dbState} from '../config/db.js';
+const r=Router();
+r.get('/health',(req,res)=>ok(res,{status:'ok',service:'manavta-agro-foods-api',database:dbState(),time:new Date().toISOString()}));
+r.get('/ready',(req,res)=>{const ready=dbState().state===1; return ready?ok(res,{status:'ready',database:dbState()}):res.status(503).json({success:false,error:{code:'NOT_READY',message:'Database is not ready'}});});
+r.post('/v1/auth/register',authLimiter,register); r.post('/v1/auth/login',authLimiter,login); r.post('/v1/auth/refresh',refresh); r.get('/v1/auth/me',auth,me); r.post('/v1/auth/logout',logout); r.post('/auth/login',authLimiter,login); r.post('/auth/refresh',refresh); r.post('/auth/logout',logout);
+r.get('/v1/products',products.list); r.get('/v1/products/:id',products.get); r.post('/v1/products',auth,requireRole('admin'),writeLimiter,claimIdempotency,products.create); r.patch('/v1/products/:id',auth,requireRole('admin'),writeLimiter,claimIdempotency,products.update); r.delete('/v1/products/:id',auth,requireRole('admin'),writeLimiter,claimIdempotency,products.remove);
+r.get('/v1/categories',categories.list); r.post('/v1/categories',auth,requireRole('admin'),writeLimiter,claimIdempotency,categories.create);
+r.post('/v1/enquiries',writeLimiter,claimIdempotency,enquiries.create); r.get('/v1/enquiries',auth,enquiries.list); r.get('/v1/enquiries/:id',auth,enquiries.get); r.patch('/v1/enquiries/:id',auth,requireRole('admin'),writeLimiter,claimIdempotency,enquiries.update); r.post('/v1/enquiries/:id/notifications/retry',auth,requireRole('admin'),writeLimiter,enquiries.retryNotifications);
+// Stable aliases for integrations that do not use the versioned prefix.
+r.post('/enquiries',writeLimiter,claimIdempotency,enquiries.create); r.get('/admin/enquiries',auth,requireRole('admin'),enquiries.list); r.get('/admin/enquiries/:id',auth,requireRole('admin'),enquiries.get); r.patch('/admin/enquiries/:id',auth,requireRole('admin'),writeLimiter,claimIdempotency,enquiries.update); r.post('/admin/enquiries/:id/notifications/retry',auth,requireRole('admin'),writeLimiter,enquiries.retryNotifications);
+r.get('/v1/inventory',auth,requireRole('admin'),inventory.list); r.get('/v1/inventory/:productId',auth,requireRole('admin'),inventory.history); r.post('/v1/inventory/movements',auth,requireRole('admin'),writeLimiter,claimIdempotency,inventory.movements);
+r.post('/v1/orders',auth,writeLimiter,claimIdempotency,orders.create); r.get('/v1/orders',auth,orders.list); r.get('/v1/orders/:id',auth,orders.get); r.patch('/v1/orders/:id/status',auth,requireRole('admin'),writeLimiter,claimIdempotency,orders.updateStatus);
+r.get('/v1/admin/dashboard',auth,requireRole('admin'),admin.dashboard); r.get('/v1/admin/customers',auth,requireRole('admin'),admin.customers); r.get('/v1/admin/audit-logs',auth,requireRole('admin'),admin.auditLogs);
+export default r;

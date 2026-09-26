@@ -1,0 +1,31 @@
+{
+  "name": "manavta-agro-foods-platform",
+  "private": true,
+  "version": "15.0.0",
+  "type": "module",
+  "workspaces": [
+    "backend"
+  ],
+  "scripts": {
+    "dev": "vite --host 0.0.0.0",
+    "build": "vite build",
+    "preview": "vite preview",
+    "test": "node --test backend/tests/*.test.js",
+    "lint": "node --check backend/src/server.js && node --check backend/src/app.js",
+    "audit:deps": "npm audit --workspaces --omit=dev",
+    "backend:dev": "npm --workspace backend run dev",
+    "backend:start": "npm --workspace backend start",
+    "seed": "npm --workspace backend run seed",
+    "perf:smoke": "node scripts/perf-smoke.mjs",
+    "verify:hardening": "node scripts/verify-hardening.mjs",
+    "test:email": "node scripts/test-email.mjs",
+    "test:backend": "npm --workspace backend test",
+    "test:api:smoke": "node scripts/smoke-api.mjs",
+    "prebuild": "node scripts/generate-sitemap.mjs"
+  },
+  "devDependencies": {
+    "vite": "^7.1.7",
+    "react": "^19.1.1",
+    "react-dom": "^19.1.1"
+  }
+}

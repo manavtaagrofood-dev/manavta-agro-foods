@@ -1,0 +1,98 @@
+openapi: 3.0.3
+info:
+  title: Manavta Agro Foods API
+  version: 2.1.0
+  description: Versioned REST API for the Manavta Agro Foods business platform.
+servers:
+  - url: http://localhost:5000/api
+    description: Local development
+security:
+  - bearerAuth: []
+paths:
+  /health:
+    get:
+      security: []
+      summary: Liveness check
+      responses:
+        '200': {description: Service is alive}
+  /ready:
+    get:
+      security: []
+      summary: Readiness check
+      responses:
+        '200': {description: Database is ready}
+        '503': {description: Dependency is unavailable}
+  /v1/auth/register:
+    post:
+      security: []
+      summary: Register a customer
+      requestBody:
+        required: true
+        content: {application/json: {schema: {$ref: '#/components/schemas/Register'}}}
+      responses: {'201': {description: Registered}, '422': {description: Validation error}}
+  /v1/auth/login:
+    post:
+      security: []
+      summary: Authenticate a user
+      responses: {'200': {description: Authenticated}, '401': {description: Invalid credentials}}
+  /v1/auth/me:
+    get:
+      summary: Current user
+      responses: {'200': {description: User returned}}
+  /v1/products:
+    get:
+      security: []
+      summary: List products
+      parameters:
+        - {$ref: '#/components/parameters/Page'}
+        - {$ref: '#/components/parameters/Limit'}
+      responses: {'200': {description: Product collection}}
+    post:
+      summary: Create a product
+      security: [{bearerAuth: []}]
+      parameters: [{$ref: '#/components/parameters/IdempotencyKey'}]
+      responses: {'201': {description: Product created}, '403': {description: Admin required}}
+  /v1/orders:
+    post:
+      summary: Create an order with server-side pricing and atomic stock reservation
+      parameters: [{$ref: '#/components/parameters/IdempotencyKey'}]
+      responses: {'201': {description: Order created}, '409': {description: Stock or idempotency conflict}}
+    get:
+      summary: List customer or admin orders
+      parameters: [{$ref: '#/components/parameters/Page'}, {$ref: '#/components/parameters/Limit'}]
+      responses: {'200': {description: Order collection}}
+  /v1/enquiries:
+    post:
+      security: []
+      summary: Submit a business enquiry
+      parameters: [{$ref: '#/components/parameters/IdempotencyKey'}]
+      responses: {'201': {description: Enquiry created}}
+    get:
+      summary: List enquiries visible to the authenticated user
+      responses: {'200': {description: Enquiry collection}}
+  /v1/inventory:
+    get:
+      summary: Inventory snapshot
+      responses: {'200': {description: Inventory collection}}
+  /v1/admin/dashboard:
+    get:
+      summary: Operational dashboard metrics
+      responses: {'200': {description: Dashboard metrics}, '403': {description: Admin required}}
+components:
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+  parameters:
+    Page: {name: page, in: query, schema: {type: integer, minimum: 1, default: 1}}
+    Limit: {name: limit, in: query, schema: {type: integer, minimum: 1, maximum: 100, default: 20}}
+    IdempotencyKey: {name: Idempotency-Key, in: header, required: false, schema: {type: string, minLength: 8, maxLength: 120}}
+  schemas:
+    Register:
+      type: object
+      required: [name,email,password]
+      properties:
+        name: {type: string, minLength: 2}
+        email: {type: string, format: email}
+        password: {type: string, minLength: 8}

@@ -1,0 +1,30 @@
+import 'dotenv/config';
+
+const requiredInProd = ['MONGODB_URI', 'JWT_SECRET', 'FRONTEND_ORIGIN'];
+const jetEmailKeys = ['JETEMAIL_API_KEY', 'JETEMAIL_FROM', 'JETEMAIL_ADMIN_TO', 'JETEMAIL_API_URL'];
+const jetEmailConfigured = jetEmailKeys.every(key => process.env[key]);
+
+if (process.env.NODE_ENV === 'production' && process.env.REQUIRE_LEAD_NOTIFICATIONS === 'true' && !jetEmailConfigured) {
+  throw new Error('Lead notifications are required in production but JetEmail is not fully configured');
+}
+for (const key of requiredInProd) {
+  if (process.env.NODE_ENV === 'production' && !process.env[key]) throw new Error(`${key} must be configured in production`);
+}
+
+export const env = {
+  nodeEnv: process.env.NODE_ENV || 'development',
+  port: Number(process.env.PORT || 5000),
+  mongoUri: process.env.MONGODB_URI || '',
+  jwtSecret: process.env.JWT_SECRET || 'development-only-secret-change-me',
+  jwtExpiresIn:process.env.JWT_EXPIRES_IN||'15m',
+  refreshTokenDays: Number(process.env.REFRESH_TOKEN_DAYS || 7),
+  adminSeedEmail: process.env.ADMIN_SEED_EMAIL || '',
+  adminSeedPassword: process.env.ADMIN_SEED_PASSWORD || '',
+  frontendOrigin: (process.env.FRONTEND_ORIGIN || 'http://localhost:5173').split(',').map(x => x.trim()).filter(Boolean),
+  jetEmailApiKey: process.env.JETEMAIL_API_KEY || '',
+  jetEmailApiUrl: (process.env.JETEMAIL_API_URL || 'https://api.jetemail.com').replace(/\/$/, ''),
+  jetEmailFrom: process.env.JETEMAIL_FROM || '',
+  jetEmailAdminTo: process.env.JETEMAIL_ADMIN_TO || 'manavtaagrofood@gmail.com',
+  requireLeadNotifications: process.env.REQUIRE_LEAD_NOTIFICATIONS === 'true',
+  siteUrl: (process.env.SITE_URL || 'http://localhost:5173').replace(/\/$/, ''),
+};

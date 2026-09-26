@@ -1,0 +1,1 @@
+import mongoose from 'mongoose'; const schema=new mongoose.Schema({name:{type:String,required:true,unique:true,trim:true},slug:{type:String,required:true,unique:true},description:{type:String,maxLength:500}},{timestamps:true}); export const Category=mongoose.model('Category',schema);

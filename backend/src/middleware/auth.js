@@ -1,0 +1,3 @@
+import {verifyToken} from '../utils/jwt.js'; import {fail} from '../utils/api.js'; import {User} from '../models/User.js';
+export async function auth(req,res,next){ const h=req.headers.authorization||''; if(!h.startsWith('Bearer ')) return fail(res,'Authentication required',401); try{const p=verifyToken(h.slice(7)); const user=await User.findById(p.sub).select('-passwordHash'); if(!user||user.status!=='active') return fail(res,'Invalid session',401); req.user=user; next();}catch{return fail(res,'Invalid or expired token',401);} }
+export const requireRole=(...roles)=>(req,res,next)=>roles.includes(req.user?.role)?next():fail(res,'Forbidden',403);

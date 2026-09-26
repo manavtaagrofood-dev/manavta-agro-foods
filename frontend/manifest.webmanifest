@@ -1,0 +1,15 @@
+{
+  "name": "Manavta Agro Foods",
+  "short_name": "Manavta",
+  "start_url": "./",
+  "scope": "./",
+  "display": "standalone",
+  "background_color": "#0D3320",
+  "theme_color": "#0D3320",
+  "description": "Manavta Agro Foods — premium rice manufacturer and exporter.",
+  "categories": ["business", "shopping"],
+  "icons": [
+    {"src":"icons/icon-192.png","sizes":"192x192","type":"image/png","purpose":"any maskable"},
+    {"src":"icons/icon-512.png","sizes":"512x512","type":"image/png","purpose":"any maskable"}
+  ]
+}

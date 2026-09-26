@@ -1,0 +1,596 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Manavta Agro Foods — Commercial Rice Processing, Punjab</title>
+<meta name="description" content="Manavta Agro Foods — commercial rice processing mill in Rureke Kalan, Barnala, Punjab, focused on bulk parboiled rice and seasonal contract milling."/>
+<meta name="theme-color" content="#0D3320"/>
+<meta name="api-base" content="/api"/>
+<meta name="robots" content="index,follow"/>
+<meta property="og:type" content="website"/>
+<meta property="og:title" content="Manavta Agro Foods — Commercial Rice Processing, Punjab"/>
+<meta property="og:description" content="Explore Manavta Agro Foods rice programmes and submit a commercial enquiry."/>
+<meta property="og:image" content="images/image1.webp"/>
+<link rel="manifest" href="manifest.webmanifest"/>
+<link rel="preload" as="image" href="images/product-hero.webp" fetchpriority="high"/>
+<link rel="canonical" data-canonical/>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&family=Inter:wght@300;400;500;600&family=Cormorant+Garamond:wght@300;400;600&display=swap" rel="stylesheet"/>
+<link rel="stylesheet" href="/src/site.css">
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"Organization","name":"Manavta Agro Foods","foundingDate":"2016","email":"mailto:manavtaagrofood@gmail.com","taxID":"03AIOPK0032A1Z4","address":{"@type":"PostalAddress","streetAddress":"Tajoke Road, Rureke Kalan","addressLocality":"District Barnala","addressRegion":"Punjab","addressCountry":"IN"}}</script>
+</head>
+<body>
+
+<div class="scroll-progress" id="scrollProgress" aria-hidden="true"></div>
+<div class="offline-bar" id="offlineBar" role="status">You're viewing the site offline. Some enquiry features may be unavailable.</div>
+<div class="toast-stack" id="toastStack" aria-live="polite" aria-atomic="false"></div>
+<div class="install-card" id="installCard">
+  <strong>Install Manavta Agro Foods</strong>
+  <p>Keep the catalogue and enquiry experience one tap away on your phone.</p>
+  <div class="install-actions"><button class="pc-btn" id="installBtn" type="button">Install</button><button class="filter-btn" id="dismissInstall" type="button">Later</button></div>
+</div>
+<div class="quote-modal" id="quoteModal" role="dialog" aria-modal="true" aria-labelledby="quoteModalTitle">
+  <div class="quote-modal-card">
+    <button class="quote-close" id="quoteClose" type="button" aria-label="Close">×</button>
+    <div class="section-label"><div class="section-label-line"></div><span class="section-label-text">Product Snapshot</span></div>
+    <h2 class="quote-modal-title" id="quoteModalTitle">Product</h2>
+    <p class="quote-modal-sub">Review the key details, then request a sample or quotation.</p>
+    <div class="quote-mini-grid" id="quoteModalSpecs"></div>
+    <div style="display:flex;gap:10px;flex-wrap:wrap;margin-top:20px">
+      <button class="btn-primary" id="modalQuoteBtn" type="button">Request a Quote</button><button class="btn-outline" id="modalSampleBtn" type="button" style="color:var(--green);border-color:var(--gray-200)">Request a Sample</button>
+      <button class="btn-outline" id="modalCloseBtn" type="button" style="color:var(--green);border-color:var(--gray-200)">Close</button>
+    </div>
+  </div>
+</div>
+
+<a class="skip-link" href="#main-content">Skip to main content</a>
+  <div id="cursor-glow"></div>
+
+<!-- ══ NAV ══ -->
+<nav id="nav" class="top" aria-label="Primary navigation">
+  <div class="nav-inner">
+    <a class="nav-logo" href="#home" onclick="showPage('home'); return false;" aria-label="Manavta Agro Foods home">
+      <img class="brand-logo-img" src="images/manavta-logo.svg" alt="Manavta Agro Foods logo">
+      <div class="nav-logo-text">
+        <span class="nav-logo-name">Manavta Agro Foods</span>
+        <span class="nav-logo-sub">Est. 2016 · Punjab, India</span>
+      </div>
+    </a>
+    <div class="nav-links">
+      <button class="nav-link active" onclick="showPage('home',this)">Home</button>
+      <button class="nav-link" onclick="showPage('about',this)">About Us</button>
+      <button class="nav-link" onclick="showPage('products',this)">Products</button>
+      <button class="nav-link" onclick="showPage('exports',this)">Supply Model</button>
+      <button class="nav-link nav-cta" onclick="showPage('contact',this)">Get a Quote</button>
+    </div>
+    <button class="hamburger" onclick="toggleMenu()" aria-label="Menu">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+</nav>
+<div class="mobile-menu" id="mobileMenu">
+  <button class="mobile-link" onclick="showPage('home');closeMenu()">Home</button>
+  <button class="mobile-link" onclick="showPage('about');closeMenu()">About Us</button>
+  <button class="mobile-link" onclick="showPage('products');closeMenu()">Products</button>
+  <button class="mobile-link" onclick="showPage('exports');closeMenu()">Supply Model</button>
+  <button class="mobile-link" onclick="showPage('contact');closeMenu()">Get a Quote</button>
+</div>
+
+<!-- ══════════════════════════════════════
+     HOME PAGE
+══════════════════════════════════════ -->
+<main id="main-content">
+<div class="page active" id="page-home">
+
+<!-- Hero -->
+<section id="hero">
+  <div class="hero-bg"></div>
+  <div class="hero-grain"></div>
+  <div class="hero-grid"></div>
+  <div class="hero-deco"></div>
+  <div class="hero-ring"></div>
+  <div class="hero-ring2"></div>
+  <div class="hero-content">
+    <div class="hero-text">
+      <div class="hero-badge"><span class="hero-badge-dot"></span><span>Parboiled Rice Mill — Since 2016</span></div>
+      <h1 class="hero-headline">Where Every Grain<br>Tells a Story of <em>Excellence</em></h1>
+      <p class="hero-sub">Manavta Agro Foods is a Punjab-based rice processing mill focused on bulk parboiled rice, with seasonal contract milling for selected Basmati and long-grain requirements.</p>
+      <div class="hero-actions">
+        <button class="btn-primary" onclick="showPage('products')">Explore Our Range</button>
+        <button class="btn-outline" onclick="showPage('contact')"><span>Request a Quote</span><span class="btn-arrow">→</span></button>
+      </div>
+      <div class="hero-stats">
+        <div class="hero-stat"><div class="hero-stat-num">2016</div><div class="hero-stat-label">Established</div></div>
+        <div class="hero-stat"><div class="hero-stat-num">25–50</div><div class="hero-stat-label">kg Bulk Packs</div></div>
+      </div>
+    </div>
+    <div class="hero-visual">
+      <div class="hero-img-frame">
+        <div class="hero-img-inner">
+          <img src="images/image1.webp" alt="Premium Basmati Rice" class="hero-image" loading="eager" fetchpriority="high" decoding="async">
+        </div>
+      </div>
+      <div class="hero-float-card">
+        <div class="hfc-label">Current Contract Availability</div>
+        <div class="hfc-value">Seasonal Rice Contracts</div>
+        <div class="hfc-meta">Subject to seasonal availability & buyer specification</div>
+      </div>
+      <div class="hero-float-card2">
+        <div class="hfc2-flag">🌍</div>
+        <div class="hfc2-text">Prepared for</div>
+        <div class="hfc2-value">Commercial Buyers</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Ticker -->
+<div class="ticker">
+  <div class="ticker-inner" id="ticker-inner">
+    <span class="ticker-item">🌾 Long Grain PR Rice<span class="ticker-sep">·</span></span>
+    <span class="ticker-item">✨ Seasonal Basmati Contracts<span class="ticker-sep">·</span></span>
+    <span class="ticker-item">🍚 Parboiled / Sella<span class="ticker-sep">·</span></span>
+    <span class="ticker-item">📦 25 kg / 50 kg Bulk Bags<span class="ticker-sep">·</span></span>
+    <span class="ticker-item">🌾 Barnala Belt, Punjab<span class="ticker-sep">·</span></span>
+    <span class="ticker-item">🤝 Buyer-Specific Contracts<span class="ticker-sep">·</span></span>
+    <span class="ticker-item">⚙️ Soaking · Steaming · Drying<span class="ticker-sep">·</span></span>
+    <span class="ticker-item">🌾 Long Grain PR Rice<span class="ticker-sep">·</span></span>
+    <span class="ticker-item">✨ Seasonal Basmati Contracts<span class="ticker-sep">·</span></span>
+    <span class="ticker-item">🍚 Parboiled / Sella<span class="ticker-sep">·</span></span>
+    <span class="ticker-item">📦 25 kg / 50 kg Bulk Bags<span class="ticker-sep">·</span></span>
+    <span class="ticker-item">🌾 Barnala Belt, Punjab<span class="ticker-sep">·</span></span>
+    <span class="ticker-item">🤝 Buyer-Specific Contracts<span class="ticker-sep">·</span></span>
+    <span class="ticker-item">⚙️ Soaking · Steaming · Drying<span class="ticker-sep">·</span></span>
+  </div>
+</div>
+
+<!-- Daawat-inspired discovery: product-led, image-first navigation -->
+<section class="home-discovery">
+  <div class="container">
+    <div class="reveal" style="text-align:center;max-width:760px;margin:auto">
+      <div class="section-label" style="justify-content:center"><div class="section-label-line"></div><span class="section-label-text">Discover Manavta Rice</span><div class="section-label-line"></div></div>
+      <h2 class="section-title">Rice for <em>every requirement</em></h2>
+      <p class="section-body" style="margin:0 auto">Explore carefully selected rice varieties for importers, distributors, wholesalers, retail programs and food-service buyers.</p>
+    </div>
+    <div class="discovery-grid">
+      <article class="discovery-card reveal" onclick="showPage('products')">
+        <img src="images/Basmati.webp" alt="Premium basmati rice" loading="lazy" decoding="async">
+        <div class="discovery-copy"><div class="discovery-kicker">Premium Collection</div><div class="discovery-title">Basmati Rice</div><span class="discovery-link">Explore range →</span></div>
+      </article>
+      <article class="discovery-card reveal" onclick="showPage('products')">
+        <img src="images/sella.webp" alt="Golden sella rice" loading="lazy" decoding="async">
+        <div class="discovery-copy"><div class="discovery-kicker">HORECA & Bulk</div><div class="discovery-title">Sella & Parboiled</div><span class="discovery-link">Explore range →</span></div>
+      </article>
+      <article class="discovery-card reveal" onclick="showPage('products')">
+        <img src="images/brown.webp" alt="Brown basmati rice" loading="lazy" decoding="async">
+        <div class="discovery-copy"><div class="discovery-kicker">Specialty Selection</div><div class="discovery-title">Brown & Specialty</div><span class="discovery-link">Explore range →</span></div>
+      </article>
+    </div>
+  </div>
+</section>
+
+<!-- Features -->
+<section style="background:var(--cream)">
+  <div class="container">
+    <div class="reveal" style="text-align:center;max-width:600px;margin:0 auto 0">
+      <div class="section-label" style="justify-content:center"><div class="section-label-line"></div><span class="section-label-text">Why Choose Us</span><div class="section-label-line"></div></div>
+      <h2 class="section-title">The Manavta <em>Difference</em></h2>
+      <p class="section-body" style="margin:0 auto">From regional paddy procurement to finished rice, our workflow is built around careful processing, agreed specifications and dependable bulk supply.</p>
+    </div>
+    <div class="features-grid">
+      <div class="feature-card reveal" style="transition-delay:.1s">
+        <div class="fc-icon">🌱</div>
+        <div class="fc-title">Source-to-Mill Control</div>
+        <div class="fc-body">Paddy is sourced through regional grain markets and seasonal procurement relationships in the Barnala belt, then processed through the mill workflow.</div>
+      </div>
+      <div class="feature-card reveal" style="transition-delay:.2s">
+        <div class="fc-icon">⚙️</div>
+        <div class="fc-title">Dedicated Parboiling Line</div>
+        <div class="fc-body">The facility is configured for parboiled rice with dedicated soaking, steaming, and drying infrastructure, supported by cleaning, sorting and polishing workflows.</div>
+      </div>
+      <div class="feature-card reveal" style="transition-delay:.3s">
+        <div class="fc-icon">📋</div>
+        <div class="fc-title">Rigorous Quality Control</div>
+        <div class="fc-body">Rice is cleaned, sorted and processed according to the agreed commercial specification, with moisture, broken percentage and polishing aligned to applicable buyer requirements.</div>
+      </div>
+      <div class="feature-card reveal" style="transition-delay:.4s">
+        <div class="fc-icon">🚢</div>
+        <div class="fc-title">Commercial Supply Support</div>
+        <div class="fc-body">The business primarily operates as a milling vendor within the domestic supply chain. International requirements can be discussed contract-by-contract where applicable.</div>
+      </div>
+      <div class="feature-card reveal" style="transition-delay:.5s">
+        <div class="fc-icon">📦</div>
+        <div class="fc-title">Bulk Packaging</div>
+        <div class="fc-body">Standard industrial packaging is available in 25 kg and 50 kg PP or jute bags. Private-label or customized packaging can be discussed for suitable commercial volumes.</div>
+      </div>
+      <div class="feature-card reveal" style="transition-delay:.6s">
+        <div class="fc-icon">🤝</div>
+        <div class="fc-title">Buyer-Specific Processing</div>
+        <div class="fc-body">Processing parameters such as variety, broken percentage, polishing and packaging can be aligned to the buyer contract and seasonal availability.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- About Strip -->
+<section class="home-about">
+  <div class="container">
+    <div class="ha-grid">
+      <div class="ha-img reveal-left">
+        <img src="images/image2.webp" alt="Rice fields in Punjab" class="ha-image">
+        <div class="ha-img-overlay"></div>
+        <div class="ha-img-label">
+          <div class="ha-img-label-text">Paddy to Premium — Our Story</div>
+          <div class="ha-img-label-sub">Modern milling excellence from Punjab</div>
+        </div>
+      </div>
+      <div class="reveal-right">
+        <div class="section-label"><div class="section-label-line"></div><span class="section-label-text">Our Heritage</span></div>
+        <h2 class="section-title" style="margin-bottom:20px">Rooted in <em>Punjab's</em><br>Finest Grain Belts</h2>
+        <p class="section-body" style="margin-bottom:16px">Established in 2016 at Tajoke Road, Rureke Kalan, District Barnala, Punjab, Manavta Agro Foods is focused on commercial rice processing and dependable bulk supply.</p>
+        <p class="section-body">Its core operation is bulk processed parboiled rice, with selected Basmati and long-grain requirements handled on a seasonal contract basis.</p>
+        <div class="counter-row">
+          <div class="counter-item"><div class="ci-num">2016</div><div class="ci-label">Established</div></div>
+          <div class="counter-item"><div class="ci-num">25–50</div><div class="ci-label">kg Bulk Packs</div></div>
+        </div>
+        <button class="btn-primary" style="margin-top:36px" onclick="showPage('about')">Discover Our Story →</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Trust / capability story -->
+<section class="testimonials">
+  <div class="container">
+    <div class="reveal" style="text-align:center">
+      <div class="section-label" style="justify-content:center"><div class="section-label-line" style="background:rgba(201,168,76,.4)"></div><span class="section-label-text" style="color:rgba(201,168,76,.7)">Built for Commercial Supply</span><div class="section-label-line" style="background:rgba(201,168,76,.4)"></div></div>
+      <h2 class="section-title" style="color:var(--white);margin-bottom:8px">Built Around <em>Buyer Requirements</em></h2>
+      <p class="section-body" style="color:rgba(255,255,255,.58);margin:0 auto;max-width:680px">A product-first commercial experience that makes specifications, sampling discussions, packaging and enquiry handling clear for professional buyers.</p>
+    </div>
+    <div class="testi-grid" style="margin-top:48px">
+      <div class="testi-card reveal"><div class="testi-quote">01</div><h3 style="color:#fff;font-family:'Playfair Display',serif;font-size:24px">Clear Specifications</h3><p class="testi-body">Review grain type, processing, packing options and key product specifications before requesting a quotation.</p></div>
+      <div class="testi-card reveal"><div class="testi-quote">02</div><h3 style="color:#fff;font-family:'Playfair Display',serif;font-size:24px">Flexible Supply</h3><p class="testi-body">Build enquiries around the rice variety, estimated quantity and packaging requirements that fit your market.</p></div>
+      <div class="testi-card reveal"><div class="testi-quote">03</div><h3 style="color:#fff;font-family:'Playfair Display',serif;font-size:24px">Commercial Enquiry</h3><p class="testi-body">Move from product discovery to sampling discussions, packaging requirements and a structured commercial enquiry.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA Banner -->
+<section style="background:var(--cream)">
+  <div class="container">
+    <div class="cta-banner reveal">
+      <h2 class="cta-banner-title">Ready to Source Premium Rice?</h2>
+      <p class="cta-banner-sub">Tell us your rice, quantity and packaging requirements and the Manavta team can prepare the right commercial enquiry path for you.</p>
+      <div class="cta-banner-actions">
+        <button class="btn-dark" onclick="showPage('contact')">Request a Sample</button>
+        <button class="btn-ghost" onclick="showPage('products')">Browse Products</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+</div><!-- /home page -->
+
+<!-- ══════════════════════════════════════
+     ABOUT PAGE
+══════════════════════════════════════ -->
+<div class="page" id="page-about">
+<div class="about-hero">
+  <div class="about-hero-content">
+    <div class="page-breadcrumb">
+      <span class="breadcrumb-item" onclick="showPage('home')">Home</span>
+      <span class="breadcrumb-sep">›</span>
+      <span class="breadcrumb-item breadcrumb-active">About Us</span>
+    </div>
+    <h1 class="page-title">Modern Rice Milling<br><em style="font-style:italic;color:var(--gold-lt)">Mastery</em> from Punjab</h1>
+    <p class="page-subtitle">Established in 2016 at Tajoke Road, Rureke Kalan, District Barnala, Punjab, Manavta Agro Foods is a commercial rice processing mill focused on bulk parboiled rice and buyer-specific contracts.</p>
+  </div>
+</div>
+<section style="background:var(--white)">
+  <div class="container">
+    <div class="about-grid">
+<div class="about-img-stack reveal-left">
+
+  <div class="about-img-main">
+    <img src="images/about1.webp" alt="Rice production" class="about-img" loading="lazy" decoding="async">
+  </div>
+
+  <div class="about-img-sub">
+    <img src="images/about2.webp" alt="Premium basmati grains" class="about-img" loading="lazy" decoding="async">
+  </div>
+
+  <div class="about-img-badge">
+    <div class="aib-num">2016</div>
+    <div class="aib-label">EST. YEAR</div>
+  </div>
+
+</div>   
+<div class="reveal-right">
+        <div class="section-label"><div class="section-label-line"></div><span class="section-label-text">Our Foundation</span></div>
+        <h2 class="section-title" style="margin-bottom:24px">Built on <em>Trust</em>,<br>Grain by Grain</h2>
+        <p class="section-body" style="max-width:100%;margin-bottom:16px">Manavta Agro Foods was established in 2016 at Tajoke Road, Rureke Kalan, District Barnala, Punjab. The mill is configured for parboiled rice processing with dedicated soaking, steaming and drying infrastructure.</p>
+        <p class="section-body" style="max-width:100%;margin-bottom:32px">Our facility is built around industrial parboiling workflows and commercial bulk supply. Buyer requirements can be aligned around rice variety, processing, broken percentage, polishing, moisture targets and packaging.</p>
+        <div class="about-values">
+          <div class="about-value"><div class="av-icon">🎯</div><div><div class="av-title">Our Mission</div><div class="av-body">To process and supply consistent commercial rice lots against clear buyer specifications, with dependable mill operations and transparent communication.</div></div></div>
+          <div class="about-value"><div class="av-icon">🌟</div><div><div class="av-title">Our Vision</div><div class="av-body">To build long-term commercial relationships around dependable rice processing, practical quality control and buyer-specific supply.</div></div></div>
+          <div class="about-value"><div class="av-icon">💡</div><div><div class="av-title">Our Values</div><div class="av-body">Clear specifications, disciplined processing, practical quality control and buyer-focused service guide our work.</div></div></div>
+        </div>
+      </div>
+    </div>
+    <div class="milestones reveal">
+      <div style="display:grid;grid-template-columns:1fr 2fr;gap:60px;align-items:start">
+        <div>
+          <h3 class="milestones-title">Our Journey</h3>
+          <p class="milestones-sub">Key milestones that shaped who we are today.</p>
+          <button class="btn-primary" style="margin-top:24px" onclick="showPage('contact')">Partner With Us</button>
+        </div>
+        <div class="timeline">
+          <div class="timeline-item"><div class="timeline-dot"></div><div class="timeline-year">2016</div><div class="timeline-event">Founding of Manavta Agro Foods</div><div class="timeline-detail">Manavta Agro Foods is established in Rureke Kalan, District Barnala, Punjab, with a facility configured for commercial parboiled rice processing.</div></div>
+          <div class="timeline-item"><div class="timeline-dot"></div><div class="timeline-year">2018</div><div class="timeline-event">Commercial Milling Operations</div><div class="timeline-detail">The mill develops its core role as a commercial processing vendor within the domestic rice supply chain.</div></div>
+          <div class="timeline-item"><div class="timeline-dot"></div><div class="timeline-year">2019</div><div class="timeline-event">Processing Capability</div><div class="timeline-detail">Dedicated soaking, steaming and drying infrastructure supports the parboiled rice production workflow.</div></div>
+          <div class="timeline-item"><div class="timeline-dot"></div><div class="timeline-year">2021</div><div class="timeline-event">Seasonal Contract Milling</div><div class="timeline-detail">Selected Basmati and long-grain PR requirements can be handled through seasonal contracts and buyer-specific specifications.</div></div>
+          <div class="timeline-item"><div class="timeline-dot"></div><div class="timeline-year">2023</div><div class="timeline-event">Bulk Packaging</div><div class="timeline-detail">Standard industrial bulk packaging is typically supplied in 25 kg and 50 kg PP or jute bags; customized packaging is subject to commercial agreement.</div></div>
+          <div class="timeline-item" style="padding-bottom:0"><div class="timeline-dot"></div><div class="timeline-year">2024</div><div class="timeline-event">Modern Processing Workflow</div><div class="timeline-detail">Cleaning, sorting, polishing and parboiling workflows support consistent commercial lots and buyer-defined specifications.</div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+</div>
+
+<!-- ══════════════════════════════════════
+     PRODUCTS PAGE
+══════════════════════════════════════ -->
+<div class="page" id="page-products">
+<div class="about-hero products-hero">
+  <div class="about-hero-content">
+    <div class="page-breadcrumb">
+      <span class="breadcrumb-item" onclick="showPage('home')">Home</span>
+      <span class="breadcrumb-sep">›</span>
+      <span class="breadcrumb-item breadcrumb-active">Products</span>
+    </div>
+    <h1 class="page-title">Commercial Rice <em style="font-style:italic;color:var(--gold-lt)">Programme</em></h1>
+    <p class="page-subtitle">Bulk parboiled rice is the core programme. Long-grain PR varieties and selected Basmati variants are available subject to seasonal procurement and buyer contract.</p>
+  </div>
+</div>
+<section>
+  <div class="container">
+    <div class="products-filter reveal" role="group" aria-label="Filter products">
+      <button type="button" class="filter-btn active" data-filter="all">All Varieties</button>
+      <button type="button" class="filter-btn" data-filter="basmati">Basmati</button>
+      <button type="button" class="filter-btn" data-filter="non-basmati">Non-Basmati</button>
+      <button type="button" class="filter-btn" data-filter="custom">Custom Contract</button>
+      <button type="button" class="filter-btn" data-filter="sella">Parboiled</button>
+    </div>
+    <div class="product-tools reveal">
+      <span id="product-count" class="product-count" aria-live="polite"></span>
+      <div class="product-search-wrap">
+        <span class="product-search-icon" aria-hidden="true">⌕</span>
+        <label class="sr-only" for="product-search">Search products</label>
+        <input id="product-search" class="product-search" type="search" placeholder="Search rice varieties…" autocomplete="off"/>
+      </div>
+    </div>
+    <div class="products-grid">
+      <div class="product-card reveal" data-category="non-basmati" style="transition-delay:0.08s">
+        <div class="product-card-img pc-non-basmati"><img src="images/pr114.webp" alt="PR 114 Long Grain Parboiled Rice" class="product-image" loading="lazy" decoding="async"></div>
+        <div class="product-card-body">
+          <div class="pc-category">Long Grain PR</div><div class="pc-name">PR 114 Long Grain Parboiled Rice</div>
+          <div class="pc-desc">Commercial long-grain PR variety processed through the mill parboiling workflow. Final broken percentage, moisture and polishing are agreed by buyer contract.</div>
+          <div class="pc-specs"><div class="pc-spec"><span class="pc-spec-label">Grain Length</span><span class="pc-spec-value">6.4–7.0 mm</span></div><div class="pc-spec"><span class="pc-spec-label">Moisture</span><span class="pc-spec-value">12–14%</span></div><div class="pc-spec"><span class="pc-spec-label">Broken</span><span class="pc-spec-value">Buyer contract</span></div><div class="pc-spec"><span class="pc-spec-label">Packing</span><span class="pc-spec-value">25 / 50 kg</span></div></div>
+          <div class="pc-action"><button class="pc-btn" onclick="showPage('contact')">Request Quote</button><span class="pc-icon">→</span></div>
+        </div>
+      </div>
+      <div class="product-card reveal" data-category="non-basmati" style="transition-delay:0.16s">
+        <div class="product-card-img pc-non-basmati"><img src="images/pr126.webp" alt="PR 126 Long Grain Parboiled Rice" class="product-image" loading="lazy" decoding="async"></div>
+        <div class="product-card-body">
+          <div class="pc-category">Long Grain PR</div><div class="pc-name">PR 126 Long Grain Parboiled Rice</div>
+          <div class="pc-desc">Regional Punjab long-grain PR variety, subject to seasonal procurement and agreed commercial specifications.</div>
+          <div class="pc-specs"><div class="pc-spec"><span class="pc-spec-label">Grain Length</span><span class="pc-spec-value">6.4–7.0 mm</span></div><div class="pc-spec"><span class="pc-spec-label">Moisture</span><span class="pc-spec-value">12–14%</span></div><div class="pc-spec"><span class="pc-spec-label">Broken</span><span class="pc-spec-value">Buyer contract</span></div><div class="pc-spec"><span class="pc-spec-label">Packing</span><span class="pc-spec-value">25 / 50 kg</span></div></div>
+          <div class="pc-action"><button class="pc-btn" onclick="showPage('contact')">Request Quote</button><span class="pc-icon">→</span></div>
+        </div>
+      </div>
+      <div class="product-card reveal" data-category="basmati" style="transition-delay:0.24s">
+        <div class="product-card-img pc-basmati"><img src="images/basmati1121.webp" alt="1121 Basmati — Contract Milling" class="product-image" loading="lazy" decoding="async"></div>
+        <div class="product-card-body">
+          <div class="pc-category">Basmati Contract</div><div class="pc-name">1121 Basmati — Contract Milling</div>
+          <div class="pc-desc">Selected 1121 Basmati requirements can be processed on a seasonal contract basis, subject to paddy availability and buyer specification.</div>
+          <div class="pc-specs"><div class="pc-spec"><span class="pc-spec-label">Grain Length</span><span class="pc-spec-value">7.4–8.4+ mm</span></div><div class="pc-spec"><span class="pc-spec-label">Moisture</span><span class="pc-spec-value">12–14% target</span></div><div class="pc-spec"><span class="pc-spec-label">Broken</span><span class="pc-spec-value">Buyer contract</span></div><div class="pc-spec"><span class="pc-spec-label">Packing</span><span class="pc-spec-value">25 / 50 kg</span></div></div>
+          <div class="pc-action"><button class="pc-btn" onclick="showPage('contact')">Request Quote</button><span class="pc-icon">→</span></div>
+        </div>
+      </div>
+      <div class="product-card reveal" data-category="basmati" style="transition-delay:0.32s">
+        <div class="product-card-img pc-basmati"><img src="images/regional-basmati.webp" alt="Regional Basmati — Contract Milling" class="product-image" loading="lazy" decoding="async"></div>
+        <div class="product-card-body">
+          <div class="pc-category">Basmati Contract</div><div class="pc-name">Regional Basmati — Contract Milling</div>
+          <div class="pc-desc">Regional Basmati variants can be considered for seasonal contract milling with buyer-defined quality and packaging requirements.</div>
+          <div class="pc-specs"><div class="pc-spec"><span class="pc-spec-label">Grain Length</span><span class="pc-spec-value">7.4–8.4+ mm</span></div><div class="pc-spec"><span class="pc-spec-label">Moisture</span><span class="pc-spec-value">12–14% target</span></div><div class="pc-spec"><span class="pc-spec-label">Broken</span><span class="pc-spec-value">Buyer contract</span></div><div class="pc-spec"><span class="pc-spec-label">Packing</span><span class="pc-spec-value">25 / 50 kg</span></div></div>
+          <div class="pc-action"><button class="pc-btn" onclick="showPage('contact')">Request Quote</button><span class="pc-icon">→</span></div>
+        </div>
+      </div>
+      <div class="product-card reveal" data-category="sella" style="transition-delay:0.40s">
+        <div class="product-card-img pc-sella"><img src="images/bulk-parboiled.webp" alt="Bulk Parboiled Rice — 25 kg / 50 kg" class="product-image" loading="lazy" decoding="async"></div>
+        <div class="product-card-body">
+          <div class="pc-category">Bulk Parboiled</div><div class="pc-name">Bulk Parboiled Rice — 25 kg / 50 kg</div>
+          <div class="pc-desc">Core commercial offering supplied in industrial PP or jute bags. Quantity, grade and packaging are aligned to the order.</div>
+          <div class="pc-specs"><div class="pc-spec"><span class="pc-spec-label">Grain Length</span><span class="pc-spec-value">Variety dependent</span></div><div class="pc-spec"><span class="pc-spec-label">Moisture</span><span class="pc-spec-value">12–14% target</span></div><div class="pc-spec"><span class="pc-spec-label">Broken</span><span class="pc-spec-value">Buyer contract</span></div><div class="pc-spec"><span class="pc-spec-label">Packing</span><span class="pc-spec-value">25 / 50 kg</span></div></div>
+          <div class="pc-action"><button class="pc-btn" onclick="showPage('contact')">Request Quote</button><span class="pc-icon">→</span></div>
+        </div>
+      </div>
+      <div class="product-card reveal" data-category="custom" style="transition-delay:0.48s">
+        <div class="product-card-img pc-custom"><img src="images/custom-milling.webp" alt="Custom Buyer-Spec Rice Milling" class="product-image" loading="lazy" decoding="async"></div>
+        <div class="product-card-body">
+          <div class="pc-category">Custom Contract</div><div class="pc-name">Custom Buyer-Spec Rice Milling</div>
+          <div class="pc-desc">Buyer-specific milling for agreed rice varieties, processing, polishing, broken percentage and packaging requirements.</div>
+          <div class="pc-specs"><div class="pc-spec"><span class="pc-spec-label">Grain Length</span><span class="pc-spec-value">Specification dependent</span></div><div class="pc-spec"><span class="pc-spec-label">Moisture</span><span class="pc-spec-value">Contract target</span></div><div class="pc-spec"><span class="pc-spec-label">Broken</span><span class="pc-spec-value">Contract target</span></div><div class="pc-spec"><span class="pc-spec-label">Packing</span><span class="pc-spec-value">25 / 50 kg</span></div></div>
+          <div class="pc-action"><button class="pc-btn" onclick="showPage('contact')">Request Quote</button><span class="pc-icon">→</span></div>
+        </div>
+      </div>
+    </div>
+    <div class="quality-strip reveal" style="margin-top:60px">
+      <div class="qs-item"><span class="qs-icon">🌾</span><div class="qs-title">Quality-Focused Processing</div><div class="qs-body">Rice is cleaned, sorted and processed according to the agreed commercial specification.</div></div>
+      <div class="qs-item"><span class="qs-icon">🌿</span><div class="qs-title">Buyer-Specified Parameters</div><div class="qs-body">Moisture, broken percentage, polishing and packaging can be agreed according to the commercial specification and applicable requirements.</div></div>
+      <div class="qs-item"><span class="qs-icon">📦</span><div class="qs-title">OEM Packaging</div><div class="qs-body">Customized or private-label packaging can be discussed for suitable commercial volumes and agreed bagging specifications.</div></div>
+      <div class="qs-item"><span class="qs-icon">🗓️</span><div class="qs-title">Production Planning</div><div class="qs-body">Timing depends on variety, seasonal availability, quantity, milling schedule and agreed commercial terms.</div></div>
+    </div>
+  </div>
+</section>
+</div>
+
+<!-- ══════════════════════════════════════
+     EXPORTS PAGE
+══════════════════════════════════════ -->
+<div class="page" id="page-exports">
+<div class="about-hero">
+  <div class="about-hero-content">
+    <div class="page-breadcrumb">
+      <span class="breadcrumb-item" onclick="showPage('home')">Home</span>
+      <span class="breadcrumb-sep">›</span>
+      <span class="breadcrumb-item breadcrumb-active">Commercial Supply</span>
+    </div>
+    <h1 class="page-title">From Our Mill to Your <em style="font-style:italic;color:var(--gold-lt)">Supply Chain</em></h1>
+    <p class="page-subtitle">Manavta primarily operates as a milling vendor within the domestic supply chain. Direct international trade books are not publicly declared; international requirements are handled only where commercially agreed.</p>
+  </div>
+</div>
+<section>
+  <div class="container">
+    <div class="exports-map-section reveal">
+      <div class="section-label" style="justify-content:center"><div class="section-label-line"></div><span class="section-label-text">Commercial Supply</span><div class="section-label-line"></div></div>
+      <h2 class="section-title" style="margin-bottom:8px;text-align:center">Our <em>Supply</em> Model</h2>
+      <div class="world-map-visual">
+        <div class="supply-model-note"><strong>Primary operating model</strong><span>Commercial milling and domestic supply. International requirements are considered only through direct commercial agreement.</span></div><div class="export-stats">
+          <div class="es-item"><div class="es-num">Domestic</div><div class="es-label">Primary Supply</div></div>
+          
+          <div class="es-item"><div class="es-num">2016</div><div class="es-label">Established</div></div>
+          <div class="es-item"><div class="es-num">25–50</div><div class="es-label">kg Bulk Packs</div></div>
+        </div>
+      </div>
+    </div>
+    <div class="reveal">
+      <div class="section-label" style="justify-content:center;margin-bottom:12px"><div class="section-label-line"></div><span class="section-label-text">Commercial Process</span><div class="section-label-line"></div></div>
+      <h2 class="section-title" style="text-align:center;margin-bottom:50px">Our Commercial <em>Process</em></h2>
+    </div>
+    <div class="process-timeline">
+      <div class="pt-item reveal" style="transition-delay:.1s"><div class="pt-circle">📋</div><div class="pt-title">Inquiry & Quotation</div><div class="pt-body">Submit your rice, quantity, processing and packaging requirements for review by the Manavta team.</div></div>
+      <div class="pt-item reveal" style="transition-delay:.2s"><div class="pt-circle">🔬</div><div class="pt-title">Sample Approval</div><div class="pt-body">Specifications and samples can be discussed where required and commercially feasible.</div></div>
+      <div class="pt-item reveal" style="transition-delay:.3s"><div class="pt-circle">⚙️</div><div class="pt-title">Production & Processing</div><div class="pt-body">Production follows the agreed variety, processing and commercial parameters for the lot.</div></div>
+      <div class="pt-item reveal" style="transition-delay:.4s"><div class="pt-circle">📦</div><div class="pt-title">Packing & Handover</div><div class="pt-body">Bulk PP or jute packaging is typically available in 25 kg and 50 kg formats; other requirements require agreement.</div></div>
+      <div class="pt-item reveal" style="transition-delay:.5s"><div class="pt-circle">🚢</div><div class="pt-title">Dispatch & Documentation</div><div class="pt-body">Dispatch and any required commercial documentation are handled according to the agreed transaction and applicable requirements.</div></div>
+    </div>
+  </div>
+</section>
+</div>
+
+<!-- ══════════════════════════════════════
+     CONTACT PAGE
+══════════════════════════════════════ -->
+<div class="page" id="page-contact">
+<div class="about-hero">
+  <div class="about-hero-content">
+    <div class="page-breadcrumb">
+      <span class="breadcrumb-item" onclick="showPage('home')">Home</span>
+      <span class="breadcrumb-sep">›</span>
+      <span class="breadcrumb-item breadcrumb-active">Contact Us</span>
+    </div>
+    <h1 class="page-title">Let's Start a <em style="font-style:italic;color:var(--gold-lt)">Conversation</em></h1>
+    <p class="page-subtitle">Whether you're an importer, distributor, or retailer — our team is ready to build a long-term supply partnership tailored to your needs.</p>
+  </div>
+</div>
+<section>
+  <div class="container">
+    <div class="contact-grid">
+      <div class="contact-info reveal-left">
+        <div class="ci-block"><div class="cib-icon">📍</div><div class="cib-title">Our Mill & Head Office</div><div class="cib-content">Manavta Agro Foods<br>Tajoke Road, Rureke Kalan<br>District Barnala, Punjab, India</div></div>
+        
+        <div class="ci-block"><div class="cib-icon">📧</div><div class="cib-title">Email</div><div class="cib-content">manavtaagrofood@gmail.com<br><br>Please include your rice requirement, quantity and packaging preference so the team can respond efficiently.</div></div>
+        <div class="ci-block"><div class="cib-icon">🕐</div><div class="cib-title">Working Hours</div><div class="cib-content">Monday – Saturday: 9:00 AM – 6:00 PM IST<br>Sunday: Closed<br>Enquiries are handled during published working hours.</div></div>
+      </div>
+      <div class="reveal-right">
+        <form class="contact-form-wrap" id="contactFormWrap" novalidate>
+          <div class="cf-title">Request a Quote or Sample</div>
+          <div class="cf-sub">Share your commercial requirement. The team will review it and contact you during published working hours.</div>
+          <div class="form-row">
+            <div class="form-group"><label class="form-label" for="firstName">Name</label><input id="firstName" type="text" name="firstName" class="form-input" placeholder="Your name" autocomplete="given-name" required minlength="2"/></div>
+            <div class="form-group"><label class="form-label" for="lastName">Last Name <span aria-hidden="true">(optional)</span></label><input id="lastName" type="text" name="lastName" class="form-input" placeholder="Optional" autocomplete="family-name"/></div>
+          </div>
+          <div class="form-row">
+            <div class="form-group"><label class="form-label" for="email">Email Address</label><input id="email" type="email" name="email" class="form-input" placeholder="you@company.com" autocomplete="email" required/></div>
+            <div class="form-group"><label class="form-label" for="phone">Phone / Contact Number <span aria-hidden="true">(optional)</span></label><input id="phone" type="tel" name="phone" class="form-input" placeholder="+91 ..." autocomplete="tel"/></div>
+          </div>
+          <div class="form-row">
+            <div class="form-group"><label class="form-label" for="country">Country / Location</label><input id="country" type="text" name="country" class="form-input" placeholder="Punjab, India" autocomplete="country-name"/></div>
+            <div class="form-group"><label class="form-label" for="company">Company Name <span aria-hidden="true">(optional)</span></label><input id="company" type="text" name="company" class="form-input" placeholder="Your company" autocomplete="organization"/></div>
+          </div>
+          <div class="form-group"><label class="form-label" for="requirementType">Request Type</label><select id="requirementType" name="requirementType" class="form-select" required><option value="">Select request type…</option><option value="QUOTE">Request a Quote</option><option value="SAMPLE">Request a Sample</option></select></div>
+          <div class="form-group"><label class="form-label" for="product">Product</label><select id="product" name="product" class="form-select" required><option value="">Select a product…</option><option>PR 114 Long Grain Parboiled Rice</option><option>PR 126 Long Grain Parboiled Rice</option><option>1121 Basmati — Contract Milling</option><option>Regional Basmati — Contract Milling</option><option>Bulk Parboiled Rice — 25 kg / 50 kg</option><option>Custom Buyer-Spec Rice Milling</option><option>Multiple / Custom Requirement</option></select></div>
+          <div class="form-row">
+            <div class="form-group"><label class="form-label" for="quantity">Required / Estimated Quantity</label><input id="quantity" type="text" name="quantity" class="form-input" placeholder="e.g. 20 MT or sample quantity" required minlength="1"/></div>
+            <div class="form-group"><label class="form-label" for="packaging">Packaging Preference</label><input id="packaging" type="text" name="packaging" class="form-input" placeholder="e.g. 50 kg PP bags"/></div>
+          </div>
+          <div class="form-group"><label class="form-label" for="destination">Destination</label><input id="destination" type="text" name="destination" class="form-input" placeholder="City / state / country"/></div>
+          <div class="form-group"><label class="form-label" for="message">Message</label><textarea id="message" name="message" class="form-textarea" placeholder="Please describe specifications, packaging, seasonality or other requirements…" minlength="10" required></textarea></div>
+          <input type="hidden" name="sourcePage" value="website/contact"/>
+          <button class="form-submit" type="submit">Submit Request</button>
+          <p class="form-note">Your request is sent securely to our operations API and stored before notification emails are attempted. We do not promise free samples, fixed response times or availability until confirmed.</p>
+        </form>
+        <div class="form-success" id="formSuccess" role="status" aria-live="polite">
+          <div class="fs-icon">✅</div>
+          <div class="fs-title">✓ Enquiry Received</div>
+          <div class="fs-body">Thank you. We have received your requirements.<br><strong class="reference-line"></strong><br>We'll review them and contact you during our published working hours.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+</div>
+
+</main>
+
+<!-- ══ FOOTER (shared) ══ -->
+<footer id="main-footer">
+  <div class="container">
+    <div class="footer-inner">
+      <div class="footer-brand">
+        <div class="footer-logo"><img class="brand-logo-img footer-logo-img" src="images/manavta-logo.svg" alt="Manavta Agro Foods logo"><div class="fl-name">Manavta Agro Foods</div></div>
+        <p class="footer-desc">Commercial rice processing mill established in 2016 at Rureke Kalan, District Barnala, Punjab. Focused on bulk parboiled rice and buyer-specific contracts.</p>
+        <!-- <div class="footer-social">
+          <div class="fs-btn">💼</div>
+          <div class="fs-btn">🐦</div>
+          <div class="fs-btn">📘</div>
+          <div class="fs-btn">📸</div>
+        </div> -->
+      </div>
+      <div>
+        <div class="footer-col-title">Quick Links</div>
+        <div class="footer-links">
+          <button class="footer-link" onclick="showPage('home')">Home</button>
+          <button class="footer-link" onclick="showPage('about')">About Us</button>
+          <button class="footer-link" onclick="showPage('products')">Our Products</button>
+          <button class="footer-link" onclick="showPage('exports')">Commercial Supply</button>
+          <button class="footer-link" onclick="showPage('contact')">Contact Us</button>
+          <button class="footer-link" onclick="showPage('contact')">Request a Quote</button>
+        </div>
+      </div>
+      <div>
+        <div class="footer-col-title">Products</div><div class="footer-links"><button class="footer-link">PR 114 / PR 126 Parboiled</button><button class="footer-link">1121 Basmati Contract Milling</button><button class="footer-link">Regional Basmati Contracts</button><button class="footer-link">Bulk 25 kg / 50 kg</button><button class="footer-link">Custom Buyer-Spec Milling</button></div></div><div><div class="footer-col-title">Get in Touch</div>
+        <div class="footer-contact-item"><div class="fci-icon">📍</div><div><div class="fci-label">Address</div><div class="fci-value">Tajoke Road, Rureke Kalan, District Barnala, Punjab, India</div></div></div>
+        <div class="footer-contact-item"><div class="fci-icon">📧</div><div><div class="fci-label">Email</div><div class="fci-value">manavtaagrofood@gmail.com</div></div></div>
+        
+        <div class="footer-contact-item"><div class="fci-icon">🕐</div><div><div class="fci-label">Hours</div><div class="fci-value">Mon–Sat, 9AM–6PM IST</div></div></div>
+        <div class="footer-contact-item"><div class="fci-icon">▣</div><div><div class="fci-label">GSTIN</div><div class="fci-value">03AIOPK0032A1Z4</div></div></div>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <div class="footer-copy">© 2026 <span>Manavta Agro Foods</span>. All Rights Reserved.</div>
+    </div>
+  </div>
+</footer>
+
+
+<div class="mobile-actions" aria-label="Quick actions"><button type="button" onclick="showPage('contact')" aria-label="Request a quote">Request Quote</button></div>
+<button id="back-top" onclick="window.scrollTo({top:0,behavior:'smooth'})" aria-label="Back to top">↑</button>
+<div id="fab"><div class="fab-btn" onclick="showPage('contact')" title="Get a Quote">✉</div></div>
+
+<script type="module" src="/src/main.js"></script>
+</body>
+</html>
