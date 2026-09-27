@@ -119,7 +119,7 @@ const API_BASE = (
     if(!productsGrid) return;
     try{
       const controller=new AbortController(); const timer=setTimeout(()=>controller.abort(),7000);
-      const response=await fetch(`${API_BASE}/v1/products?limit=24&meta=false`,{headers:{Accept:'application/json'},signal:controller.signal,credentials:'omit'});
+      const response=await fetch(`${API_BASE}/api/v1/products?limit=24&meta=false`,{headers:{Accept:'application/json'},signal:controller.signal,credentials:'omit'});
       clearTimeout(timer);
       if(!response.ok) throw new Error(`Catalogue unavailable (${response.status})`);
       const payload=await response.json(); const items=payload?.data?.items||[];
@@ -149,7 +149,7 @@ const API_BASE = (
     for(let attempt=0;attempt<4;attempt++){
       const controller=new AbortController(); const timer=setTimeout(()=>controller.abort(),12000);
       try{
-        const res=await fetch(`${API_BASE}/v1/enquiries`,{method:'POST',headers:{'Content-Type':'application/json','Idempotency-Key':idempotencyKey,Accept:'application/json'},body:JSON.stringify(data),signal:controller.signal,credentials:'omit'});
+        const res=await fetch(`${API_BASE}/api/v1/enquiries`,{method:'POST',headers:{'Content-Type':'application/json','Idempotency-Key':idempotencyKey,Accept:'application/json'},body:JSON.stringify(data),signal:controller.signal,credentials:'omit'});
         const payload=await res.json().catch(()=>({}));
         if(res.status===409&&payload?.error?.code==='IDEMPOTENCY_IN_PROGRESS'&&attempt<3){await new Promise(r=>setTimeout(r,Math.max(1000,(payload.error.retryAfter||2)*1000)));continue;}
         if(!res.ok){const e=new Error(payload?.error?.message||`Request failed (${res.status})`);e.code=payload?.error?.code;e.status=res.status;throw e;}
