@@ -36,20 +36,12 @@ function details(e, includePrivate = false) {
     label('Email', e.email),
     label('Phone', e.phone),
     label('Product', e.productName),
-    label(
-      'Requirement',
-      e.requirementType === 'SAMPLE'
-        ? 'Request a Sample'
-        : 'Request a Quote'
-    ),
+    label('Requirement', e.requirementType === 'SAMPLE' ? 'Request a Sample' : 'Request a Quote'),
     label('Quantity', e.quantity),
     label('Packaging', e.packaging),
     label('Destination', e.destination),
     label('Status', e.status),
-    label(
-      'Submitted',
-      new Date(e.createdAt || Date.now()).toISOString()
-    )
+    label('Submitted', new Date(e.createdAt || Date.now()).toISOString())
   ];
 
   if (includePrivate) {
@@ -63,10 +55,7 @@ function details(e, includePrivate = false) {
 }
 
 export function customerEmail(enquiry) {
-  const kind =
-    enquiry.requirementType === 'SAMPLE'
-      ? 'sample request'
-      : 'enquiry';
+  const kind = enquiry.requirementType === 'SAMPLE' ? 'sample request' : 'enquiry';
 
   const html = layout(
     'We received your request',
@@ -106,10 +95,6 @@ Message: ${enquiry.message}`
   };
 }
 
-/**
- * Gmail SMTP transporter.
- * Uses a Google App Password, never the normal Gmail password.
- */
 const transporter = nodemailer.createTransport({
   host: env.smtpHost,
   port: env.smtpPort,
@@ -117,33 +102,81 @@ const transporter = nodemailer.createTransport({
   auth: {
     user: env.smtpUser,
     pass: env.smtpPass
-  }
+  },
+  connectionTimeout: 10000,
+  greetingTimeout: 10000,
+  socketTimeout: 15000,
 });
 
-export async function sendMail(message, idempotencyKey) {
-  const result = await transporter.sendMail({
-    from: env.mailFrom,
-    to: message.to,
-    replyTo:
-      message.to === env.adminEmail
-        ? enquiryReplyTo(message)
-        : env.adminEmail,
-    subject: message.subject,
-    html: message.html,
-    text: message.text,
-    headers: {
-      'X-Manavta-Idempotency-Key': idempotencyKey
-    }
-  });
+export async function verifySmtp() {
+  if (!env.smtpUser || !env.smtpPass || !env.mailFrom) {
+    throw new Error('Gmail SMTP credentials are not configured');
+  }
 
-  return {
-    sent: true,
-    providerId: result.messageId || null
-  };
+  try {
+    await transporter.verify();
+    console.log(JSON.stringify({
+      level: 'info',
+      event: 'smtp_verified',
+      provider: 'gmail',
+      host: env.smtpHost,
+      port: env.smtpPort,
+      secure: env.smtpSecure,
+      user: env.smtpUser
+    }));
+    return true;
+  } catch (error) {
+    console.error(JSON.stringify({
+      level: 'error',
+      event: 'smtp_verification_failed',
+      provider: 'gmail',
+      code: error?.code || null,
+      responseCode: error?.responseCode || null,
+      message: error?.message || 'SMTP verification failed'
+    }));
+    throw error;
+  }
 }
 
-function enquiryReplyTo(message) {
-  return undefined;
+export async function sendMail(message, idempotencyKey) {
+  try {
+    const result = await transporter.sendMail({
+      from: env.mailFrom,
+      to: message.to,
+      replyTo: env.adminEmail,
+      subject: message.subject,
+      html: message.html,
+      text: message.text,
+      headers: {
+        'X-Manavta-Idempotency-Key': idempotencyKey
+      }
+    });
+
+    console.log(JSON.stringify({
+      level: 'info',
+      event: 'email_sent',
+      provider: 'gmail',
+      to: message.to,
+      messageId: result.messageId || null
+    }));
+
+    return {
+      sent: true,
+      providerId: result.messageId || null
+    };
+  } catch (error) {
+    console.error(JSON.stringify({
+      level: 'error',
+      event: 'email_send_failed',
+      provider: 'gmail',
+      to: message.to,
+      code: error?.code || null,
+      responseCode: error?.responseCode || null,
+      response: error?.response || null,
+      message: error?.message || 'Email send failed'
+    }));
+    throw error;
+  }
 }
 
 export async function sendCustomerEnquiryConfirmation(enquiry) {
@@ -181,6 +214,16 @@ export async function notifyNewEnquiry(enquiry, requestId) {
       result.errors.push(`${key}: ${error.message}`);
     }
   }
+
+  console.log(JSON.stringify({
+    level: result.errors.length ? 'warn' : 'info',
+    event: 'enquiry_notifications_complete',
+    requestId,
+    referenceId: enquiry.referenceId,
+    customerEmailStatus: result.customerEmailStatus,
+    adminEmailStatus: result.adminEmailStatus,
+    errors: result.errors
+  }));
 
   return result;
 }

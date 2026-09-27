@@ -73,19 +73,18 @@ export const env = {
     String(process.env.SMTP_SECURE || 'true').toLowerCase() === 'true',
 
   smtpUser:
-    process.env.SMTP_USER || '',
+    (process.env.SMTP_USER || '').trim(),
 
+  // Google may display App Passwords grouped with spaces. Remove whitespace
+  // so both "abcd efgh ijkl mnop" and "abcdefghijklmnop" work.
   smtpPass:
-    process.env.SMTP_PASS || '',
+    (process.env.SMTP_PASS || '').replace(/\s+/g, ''),
 
   mailFrom:
-    process.env.MAIL_FROM ||
-    process.env.SMTP_USER ||
-    '',
+    (process.env.MAIL_FROM || process.env.SMTP_USER || '').trim(),
 
   adminEmail:
-    process.env.ADMIN_EMAIL ||
-    'manavtaagrofood@gmail.com',
+    (process.env.ADMIN_EMAIL || 'manavtaagrofood@gmail.com').trim(),
 
   requireLeadNotifications:
     process.env.REQUIRE_LEAD_NOTIFICATIONS === 'true',
