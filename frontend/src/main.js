@@ -74,8 +74,10 @@
       obs.observe(el);
     });
   }
-
-  const API_BASE = (document.querySelector('meta[name="api-base"]')?.content || '/api').replace(/\/$/,'');
+const API_BASE = (
+  import.meta.env.VITE_API_URL ||
+  'http://localhost:5000'
+).replace(/\/$/, '');
   const analyticsId = import.meta.env.VITE_GA4_MEASUREMENT_ID || import.meta.env.VITE_GA4_ID;
   const siteUrl = import.meta.env.VITE_SITE_URL;
   if (siteUrl) { const canonical=document.querySelector('[data-canonical]'); if(canonical) canonical.href=siteUrl; }
