@@ -41,3 +41,15 @@
 - Reworked the header surface, spacing, CTA alignment and keyboard focus states.
 - Removed duplicate footer wordmark and aligned footer logo with the brand column.
 - Preserved existing product, quote, sample, API and backend workflows.
+
+
+## V15.4 — Mobile responsiveness and email-client enquiry fallback (2026-10-10)
+- Added a responsive refinement for small phones, phones, tablets, and desktop widths across hero, product cards, contact form, timelines, footer, modals, and floating controls.
+- Changed the public enquiry form to prepare a message addressed to `manavtaagrofood@gmail.com` in the visitor's configured email app. Visitors must review and press Send; the site does not claim the email was sent.
+- Updated the contact-form note to explain the mail-client flow and what to do if no email app is configured.
+
+
+## 2026-10-10 — Compact bulk quote form
+- Reduced the Contact Us form to product interest, full name, phone/WhatsApp, quantity in KG, and optional email.
+- Updated the client-side validation and prepared email body to use the compact form fields.
+- The visitor must still press Send in their configured email app; the website does not confirm delivery.

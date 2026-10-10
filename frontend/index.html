@@ -13,6 +13,8 @@
 <meta property="og:title" content="Manavta Agro Foods — Commercial Rice Processing, Punjab"/>
 <meta property="og:description" content="Explore Manavta Agro Foods rice programmes and submit a commercial enquiry."/>
 <meta property="og:image" content="images/image1.webp"/>
+<link rel="icon" type="image/svg+xml" href="/favicon.svg?v=1"/>
+<link rel="shortcut icon" href="/favicon.svg?v=1"/>
 <link rel="manifest" href="manifest.webmanifest"/>
 <link rel="preload" as="image" href="images/product-hero.webp" fetchpriority="high"/>
 <link rel="canonical" data-canonical/>
@@ -517,31 +519,50 @@
       </div>
       <div class="reveal-right">
         <form class="contact-form-wrap" id="contactFormWrap" novalidate>
-          <div class="cf-title">Request a Quote or Sample</div>
-          <div class="cf-sub">Share your commercial requirement. The team will review it and contact you during published working hours.</div>
-          <div class="form-row">
-            <div class="form-group"><label class="form-label" for="firstName">Name</label><input id="firstName" type="text" name="firstName" class="form-input" placeholder="Your name" autocomplete="given-name" required minlength="2"/></div>
-            <div class="form-group"><label class="form-label" for="lastName">Last Name <span aria-hidden="true">(optional)</span></label><input id="lastName" type="text" name="lastName" class="form-input" placeholder="Optional" autocomplete="family-name"/></div>
+          <div class="cf-title">Request Bulk Quote</div>
+          <div class="cf-sub">Tell us what you need for your bulk rice order.</div>
+
+          <div class="form-group">
+            <label class="form-label" for="product">Product Interest *</label>
+            <select id="product" name="product" class="form-select" required>
+              <option value="">Select a product…</option>
+              <option>PR 114 Long Grain Parboiled Rice</option>
+              <option>PR 126 Long Grain Parboiled Rice</option>
+              <option>1121 Basmati — Contract Milling</option>
+              <option>Regional Basmati — Contract Milling</option>
+              <option>Bulk Parboiled Rice — 25 kg / 50 kg</option>
+              <option>Custom Buyer-Spec Rice Milling</option>
+              <option>General Inquiry</option>
+            </select>
           </div>
-          <div class="form-row">
-            <div class="form-group"><label class="form-label" for="email">Email Address</label><input id="email" type="email" name="email" class="form-input" placeholder="you@company.com" autocomplete="email" required/></div>
-            <div class="form-group"><label class="form-label" for="phone">Phone / Contact Number <span aria-hidden="true">(optional)</span></label><input id="phone" type="tel" name="phone" class="form-input" placeholder="+91 ..." autocomplete="tel"/></div>
+
+          <div class="form-group">
+            <label class="form-label" for="firstName">Full Name *</label>
+            <input id="firstName" type="text" name="firstName" class="form-input"
+              placeholder="Enter your full name" autocomplete="name" required minlength="2"/>
           </div>
-          <div class="form-row">
-            <div class="form-group"><label class="form-label" for="country">Country / Location</label><input id="country" type="text" name="country" class="form-input" placeholder="Punjab, India" autocomplete="country-name"/></div>
-            <div class="form-group"><label class="form-label" for="company">Company Name <span aria-hidden="true">(optional)</span></label><input id="company" type="text" name="company" class="form-input" placeholder="Your company" autocomplete="organization"/></div>
+
+          <div class="form-group">
+            <label class="form-label" for="phone">Phone / WhatsApp *</label>
+            <input id="phone" type="tel" name="phone" class="form-input"
+              placeholder="+91 ..." autocomplete="tel" required/>
           </div>
-          <div class="form-group"><label class="form-label" for="requirementType">Request Type</label><select id="requirementType" name="requirementType" class="form-select" required><option value="">Select request type…</option><option value="QUOTE">Request a Quote</option><option value="SAMPLE">Request a Sample</option></select></div>
-          <div class="form-group"><label class="form-label" for="product">Product</label><select id="product" name="product" class="form-select" required><option value="">Select a product…</option><option>PR 114 Long Grain Parboiled Rice</option><option>PR 126 Long Grain Parboiled Rice</option><option>1121 Basmati — Contract Milling</option><option>Regional Basmati — Contract Milling</option><option>Bulk Parboiled Rice — 25 kg / 50 kg</option><option>Custom Buyer-Spec Rice Milling</option><option>Multiple / Custom Requirement</option></select></div>
-          <div class="form-row">
-            <div class="form-group"><label class="form-label" for="quantity">Required / Estimated Quantity</label><input id="quantity" type="text" name="quantity" class="form-input" placeholder="e.g. 20 MT or sample quantity" required minlength="1"/></div>
-            <div class="form-group"><label class="form-label" for="packaging">Packaging Preference</label><input id="packaging" type="text" name="packaging" class="form-input" placeholder="e.g. 50 kg PP bags"/></div>
+
+          <div class="form-group">
+            <label class="form-label" for="quantity">Quantity (KG) *</label>
+            <input id="quantity" type="number" name="quantity" class="form-input"
+              placeholder="e.g. 5000" min="1" step="any" required/>
           </div>
-          <div class="form-group"><label class="form-label" for="destination">Destination</label><input id="destination" type="text" name="destination" class="form-input" placeholder="City / state / country"/></div>
-          <div class="form-group"><label class="form-label" for="message">Message</label><textarea id="message" name="message" class="form-textarea" placeholder="Please describe specifications, packaging, seasonality or other requirements…" minlength="10" required></textarea></div>
+
+          <div class="form-group">
+            <label class="form-label" for="email">Email Address (optional)</label>
+            <input id="email" type="email" name="email" class="form-input"
+              placeholder="you@company.com" autocomplete="email"/>
+          </div>
+
           <input type="hidden" name="sourcePage" value="website/contact"/>
-          <button class="form-submit" type="submit">Submit Request</button>
-          <p class="form-note">Your request is sent securely to our operations API and stored before notification emails are attempted. We do not promise free samples, fixed response times or availability until confirmed.</p>
+          <button class="form-submit" type="submit">Request Bulk Quote</button>
+          <p class="form-note">Submitting opens your configured email app with your enquiry prepared. Review it and press Send to email manavtaagrofood@gmail.com. Availability and sample requests require confirmation.</p>
         </form>
         <div class="form-success" id="formSuccess" role="status" aria-live="polite">
           <div class="fs-icon">✅</div>

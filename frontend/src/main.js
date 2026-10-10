@@ -168,55 +168,91 @@ const API_BASE = (
     }
   }
 
-  // Production enquiry workflow: validate in the browser, persist through the API, then show a reference.
+  // Email-based enquiry workflow: no backend email service is required.
+  // Submitting opens the visitor's configured email app with a prepared message;
+  // the visitor reviews it and presses Send. A website cannot silently send email via mailto.
   const form = document.getElementById('contactFormWrap');
   const submitBtn = form?.querySelector('.form-submit');
   function toast(title, message, type='success'){
     const stack=document.getElementById('toastStack'); if(!stack)return;
     const el=document.createElement('div'); el.className=`toast ${type}`;
     el.innerHTML=`<div class="toast-icon">${type==='error'?'⚠️':'✓'}</div><div class="toast-copy"><strong>${escapeHtml(title)}</strong>${escapeHtml(message)}</div>`;
-    stack.appendChild(el); setTimeout(()=>el.remove(),5200);
+    stack.appendChild(el); setTimeout(()=>el.remove(),6500);
   }
-  function makeId(){return crypto?.randomUUID?.() || `${Date.now()}-${Math.random().toString(16).slice(2)}`}
-  async function submitEnquiry(data){
-    const existing=JSON.parse(sessionStorage.getItem('ma_enquiry_draft')||'null');
-    const idempotencyKey=existing?.idempotencyKey||makeId();
-    sessionStorage.setItem('ma_enquiry_draft',JSON.stringify({...data,idempotencyKey}));
-    for(let attempt=0;attempt<4;attempt++){
-      const controller=new AbortController(); const timer=setTimeout(()=>controller.abort(),12000);
-      try{
-        const res=await fetch(`${API_BASE}/api/v1/enquiries`,{method:'POST',headers:{'Content-Type':'application/json','Idempotency-Key':idempotencyKey,Accept:'application/json'},body:JSON.stringify(data),signal:controller.signal,credentials:'omit'});
-        const payload=await res.json().catch(()=>({}));
-        if(res.status===409&&payload?.error?.code==='IDEMPOTENCY_IN_PROGRESS'&&attempt<3){await new Promise(r=>setTimeout(r,Math.max(1000,(payload.error.retryAfter||2)*1000)));continue;}
-        if(!res.ok){const e=new Error(payload?.error?.message||`Request failed (${res.status})`);e.code=payload?.error?.code;e.status=res.status;throw e;}
-        return payload;
-      } finally { clearTimeout(timer); }
-    }
-    throw new Error('The request is still being processed. Please try again shortly.');
-  }
-  const friendlyMessages={firstName:'Please enter your name.',email:'Please enter a valid email address.',requirementType:'Please select a request type.',product:'Please select a product.',quantity:'Please enter an estimated quantity.',message:'Please provide additional requirements.'};
-  form?.addEventListener('submit', async event=>{
+  const friendlyMessages = {
+    firstName: 'Please enter your full name.',
+    phone: 'Please enter your phone or WhatsApp number.',
+    product: 'Please select a product.',
+    quantity: 'Please enter a valid quantity in KG.',
+    email: 'Please enter a valid email address.'
+  };
+
+  form?.addEventListener('submit', event => {
     event.preventDefault();
-    form.querySelectorAll('.field-error').forEach(x=>x.remove());
-    const invalid=[...form.elements].filter(el=>el.willValidate&&!el.checkValidity());
-    invalid.forEach(el=>{el.setAttribute('aria-invalid','true');const msg=document.createElement('small');msg.className='field-error';msg.textContent=friendlyMessages[el.name]||el.validationMessage;el.insertAdjacentElement('afterend',msg)});
-    if(invalid.length){invalid[0].focus();return;}
-    form.querySelectorAll('[aria-invalid]').forEach(el=>el.removeAttribute('aria-invalid'));
-    const raw=Object.fromEntries(new FormData(form).entries());
-    const payload={...raw,productName:raw.product}; delete payload.product;
-    submitBtn?.classList.add('is-loading'); if(submitBtn){submitBtn.disabled=true;submitBtn.textContent='Sending…';}
-    try{
-      const result=await submitEnquiry(payload); sessionStorage.removeItem('ma_enquiry_draft'); form.style.display='none';
-      const success=document.getElementById('formSuccess'); success.style.display='block';
-      success.querySelector('.fs-title').textContent='✓ Enquiry Received';
-      success.querySelector('.fs-body').innerHTML=`Thank you. We have received your requirements.<br><strong class="reference-line">Reference ID: ${escapeHtml(result?.data?.referenceId||'ENQ-RECORDED')}</strong><br>We'll review your requirements and contact you during our published working hours.`;
-      toast('Request received','Your request is now in the Manavta operations queue.');
-    }catch(error){
-      const networkFailure=!navigator.onLine||error.name==='AbortError'||error instanceof TypeError;
-      sessionStorage.setItem('ma_enquiry_draft',JSON.stringify({...raw,idempotencyKey:JSON.parse(sessionStorage.getItem('ma_enquiry_draft')||'{}')?.idempotencyKey||makeId()}));
-      toast(networkFailure?'Cannot reach the enquiry service':'Could not submit',networkFailure?'Your draft remains in this browser. Please reconnect and try again.':(error.message||'Please check the form and try again.'),'error');
-      if(submitBtn)submitBtn.textContent='Try again';
-    }finally{submitBtn?.classList.remove('is-loading');if(submitBtn&&submitBtn.textContent!=='Try again')submitBtn.disabled=false;}
+
+    form.querySelectorAll('.field-error').forEach(el => el.remove());
+
+    const invalid = [...form.elements].filter(
+      el => el.willValidate && !el.checkValidity()
+    );
+
+    invalid.forEach(el => {
+      el.setAttribute('aria-invalid', 'true');
+      const msg = document.createElement('small');
+      msg.className = 'field-error';
+      msg.textContent = friendlyMessages[el.name] || el.validationMessage;
+      el.insertAdjacentElement('afterend', msg);
+    });
+
+    if (invalid.length) {
+      invalid[0].focus();
+      return;
+    }
+
+    form.querySelectorAll('[aria-invalid]').forEach(el => {
+      el.removeAttribute('aria-invalid');
+    });
+
+    const data = Object.fromEntries(new FormData(form).entries());
+    const subject = `Bulk Quote Enquiry — ${data.product}`;
+    const body = [
+      'MANAVTA AGRO FOODS — BULK QUOTE ENQUIRY',
+      '',
+      `Full Name: ${data.firstName}`,
+      `Phone / WhatsApp: ${data.phone}`,
+      `Product Interest: ${data.product}`,
+      `Quantity (KG): ${data.quantity}`,
+      `Email Address: ${data.email || 'Not provided'}`,
+      '',
+      `Source: ${data.sourcePage || 'website/contact'}`
+    ].join('\n');
+
+    // Save the visitor's draft in this browser in case they close their email app.
+    try {
+      sessionStorage.setItem('ma_enquiry_draft', JSON.stringify(data));
+    } catch {}
+
+    const mailto =
+      `mailto:manavtaagrofood@gmail.com?subject=${encodeURIComponent(subject)}` +
+      `&body=${encodeURIComponent(body)}`;
+
+    toast(
+      'Continue in your email app',
+      'Review the prepared bulk quote enquiry and press Send. The website cannot confirm email delivery.'
+    );
+
+    // Open the visitor's configured email application.
+    const link = document.createElement('a');
+    link.href = mailto;
+    link.style.display = 'none';
+    document.body.appendChild(link);
+    link.click();
+    link.remove();
+
+    if (submitBtn) {
+      submitBtn.textContent = 'Open email app again';
+      submitBtn.disabled = false;
+    }
   });
   try{const draft=JSON.parse(sessionStorage.getItem('ma_enquiry_draft')||'null');if(draft&&form)Object.entries(draft).forEach(([key,value])=>{const field=form.elements.namedItem(key);if(field&&value)field.value=value;});}catch{}
 
@@ -245,7 +281,7 @@ const API_BASE = (
   }
   document.getElementById('quoteClose')?.addEventListener('click',closeProductModal); document.getElementById('modalCloseBtn')?.addEventListener('click',closeProductModal); modal?.addEventListener('click',e=>{if(e.target===modal)closeProductModal()}); document.addEventListener('keydown',e=>{if(e.key==='Escape')closeProductModal()});
   document.getElementById('modalQuoteBtn')?.addEventListener('click',()=>prefillQuote(selectedProduct));
-  document.getElementById('modalSampleBtn')?.addEventListener('click',()=>{prefillQuote(selectedProduct);setTimeout(()=>{const select=form?.elements.namedItem('requirementType');if(select)select.value='SAMPLE';},140);});
+  document.getElementById('modalSampleBtn')?.addEventListener('click',()=>{prefillQuote(selectedProduct);setTimeout(()=>toast('Sample request','Please include your sample request when you contact Manavta Agro Foods. Availability requires confirmation.'),180);});
   refreshCards();
   loadPublicProducts();
 
