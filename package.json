@@ -1,7 +1,7 @@
 {
   "name": "manavta-agro-foods-platform",
   "private": true,
-  "version": "15.0.0",
+  "version": "15.3.0",
   "type": "module",
   "workspaces": [
     "backend"
@@ -21,7 +21,9 @@
     "test:email": "node scripts/test-email.mjs",
     "test:backend": "npm --workspace backend test",
     "test:api:smoke": "node scripts/smoke-api.mjs",
-    "prebuild": "node scripts/generate-sitemap.mjs"
+    "prebuild": "node scripts/generate-sitemap.mjs",
+    "report:daily": "node backend/scripts/sendDailyReport.js",
+    "email:retry": "node backend/scripts/retryFailedEmails.js"
   },
   "devDependencies": {
     "react": "^19.1.1",

@@ -1,64 +1,87 @@
-# Manavta Agro Foods Platform
+# Manavta Agro Foods
 
-Production-oriented public website and operations API for Manavta Agro Foods, a Punjab-based commercial rice processing mill established in 2016 at Tajoke Road, Rureke Kalan, District Barnala, Punjab, India. The public business model is bulk processed parboiled rice, seasonal contract milling and buyer-specific processing; it does not claim undisclosed export destinations, certifications, laboratories or production statistics.
+A full-stack business website and enquiry-management platform for **Manavta Agro Foods**, a parboiled rice mill established in 2016 in Rureke Kalan, Barnala, Punjab, India.
 
-## Release 14.0.0 — working enquiry pipeline
+The platform presents rice products and milling capabilities and supports quote requests, sample requests, enquiry administration, and customer communication.
 
-This release wires the customer-to-admin flow end to end:
+> **Release metadata:** The root `package.json` currently declares version `15.0.0`. This README describes the source package; production readiness must be confirmed by running the verification checklist and testing the deployed services.
 
-- Quote and **Request a Sample** forms with inline browser validation, duplicate-submit protection, offline-aware messaging and reference IDs.
-- Secure `POST /api/v1/enquiries` persistence to MongoDB with idempotency and audit creation.
-- JetEmail transactional customer confirmation and admin notification delivered asynchronously after persistence.
-- Per-recipient notification status (`pending`, `sent`, `failed`, `skipped`), safe error metadata and an admin retry endpoint.
-- Admin dashboard new-enquiry count, search, pagination, full submitted details, status changes and audit events.
-- JetEmail uses `JETEMAIL_API_KEY`, `JETEMAIL_API_URL`, `JETEMAIL_FROM` and `JETEMAIL_ADMIN_TO`; no secret is shipped to the browser or ZIP.
-- Product-specific visuals, corrected business claims, analytics opt-in, offline messaging, responsive layout and environment-driven canonical/sitemap support.
+## Project highlights
 
-## Local installation
+- Responsive business website and product catalogue
+- Quote and request-a-sample workflows
+- Backend enquiry persistence using MongoDB/Mongoose
+- Idempotency and duplicate-submit protections
+- Admin enquiry management, status updates, and audit events
+- Customer/admin email notification workflow
+- API specification and architecture/deployment documentation
+- Vercel frontend configuration and Render-oriented backend guidance
+
+## Technology
+
+| Layer | Technologies |
+|---|---|
+| Frontend | React, Vite, HTML, CSS, JavaScript |
+| Backend | Node.js, Express |
+| Database | MongoDB, Mongoose |
+| Authentication | JWT |
+| Email | Configurable email provider (see `.env.example` and deployment docs) |
+| Deployment | Vercel (frontend), Render (backend) |
+
+## Repository layout
+
+```text
+Manavta_Agro_Foods/
+├── frontend/       # Public site, account/admin UI, assets and policies
+├── backend/        # Express API, routes, models, middleware and tests
+├── docs/           # OpenAPI and architecture decision records
+├── ops/            # MongoDB backup guidance/scripts
+├── scripts/        # Build, smoke-test and verification utilities
+├── .env.example    # Placeholder configuration only
+├── DEPLOYMENT.md
+├── SECURITY.md
+├── TESTING.md
+└── package.json
+```
+
+## Run locally
+
+Requirements: a supported Node.js LTS release, npm, and MongoDB (local or Atlas).
 
 ```bash
-npm install
+npm ci
+```
+
+Create a local `.env` from `.env.example`, then fill in the required values:
+
+```bash
 cp .env.example .env
+```
+
+Start the frontend:
+
+```bash
 npm run dev
 ```
 
-In a second terminal, from the repository root:
+Start the API in a second terminal:
 
 ```bash
 npm run backend:dev
 ```
 
-The frontend runs at `http://localhost:5173`; the API runs at `http://localhost:5000`. MongoDB is required for enquiries, authentication, admin data and readiness.
+Typical local addresses:
 
-## Required environment
+- Frontend: `http://localhost:5173`
+- API: `http://localhost:5000`
 
-- `MONGODB_URI`
-- `JWT_SECRET`
-- `FRONTEND_ORIGIN`
-- `ADMIN_SEED_EMAIL` and `ADMIN_SEED_PASSWORD` for local admin seeding
-- `JETEMAIL_API_KEY` (optional locally; required when real notifications are required)
-- `JETEMAIL_API_URL=https://api.jetemail.com`
-- `JETEMAIL_FROM` must be a JetEmail-verified sender/domain in production
-- `JETEMAIL_ADMIN_TO=manavtaagrofood@gmail.com`
-- `VITE_SITE_URL` at frontend build time for production canonical and absolute sitemap URLs
-- `VITE_GA4_MEASUREMENT_ID` at build time; empty disables analytics
+Exact ports and required variables are defined by the current configuration and `.env.example`. Never commit `.env` or real credentials.
 
-## API surface
+## Verification
 
-- `GET /api/health`
-- `GET /api/ready`
-- `POST /api/v1/enquiries` and `POST /api/enquiries`
-- `GET /api/v1/enquiries`
-- `GET /api/v1/enquiries/:id`
-- `PATCH /api/v1/enquiries/:id`
-- `POST /api/v1/enquiries/:id/notifications/retry`
-- `POST /api/v1/auth/login`, `/refresh`, `/logout`
-- `GET /api/v1/admin/dashboard` and `/api/v1/admin/audit-logs`
-
-## Verification commands
+Run from the repository root:
 
 ```bash
-npm run verify:hardening
 npm run lint
 npm test
 npm run test:api:smoke
@@ -67,4 +90,32 @@ npm run build
 npm audit --workspaces --omit=dev
 ```
 
-See `DEPLOYMENT.md`, `SECURITY.md`, `TESTING.md` and `VERIFICATION.md` for deployment-controlled checks.
+Some checks require a reachable database, configured email provider, or deployed environment. Record which checks passed; do not describe the project as production-certified until deployment-specific checks have been completed.
+
+## API and technical documentation
+
+- `API.md` and `docs/openapi.yaml` — API reference
+- `ARCHITECTURE.md` and `SYSTEM_DESIGN.md` — system design
+- `DEPLOYMENT.md` and `PRODUCTION_HANDOFF.md` — deployment guidance and known verification requirements
+- `SECURITY.md` — security notes
+- `TESTING.md` and `VERIFICATION.md` — test and release checks
+- `CHANGELOG.md` — project changes
+
+## Environment and deployment safety
+
+- Keep database URIs, JWT secrets, email credentials, and admin passwords in the backend environment only.
+- Treat all `VITE_*` values as public client-side configuration.
+- Do not expose secrets in screenshots, logs, commits, or issue reports.
+- Preserve existing production services and databases while migrating source control or deployment settings.
+- Confirm Vercel/Render environment variables and run smoke tests after any deployment change.
+
+## Business information
+
+**Manavta Agro Foods**  
+Tajoke Road, Rureke Kalan, District Barnala, Punjab, India  
+Business email: `manavtaagrofood@gmail.com`  
+Established: 2016
+
+## License
+
+No open-source license is specified in this package. Add a license only if the project owner intends to grant reuse rights.

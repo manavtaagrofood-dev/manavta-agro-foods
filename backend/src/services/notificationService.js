@@ -66,6 +66,7 @@ export function customerEmail(enquiry) {
 
   return {
     to: enquiry.email,
+    replyTo: BUSINESS.email,
     subject: 'Manavta Agro Foods — We Received Your Enquiry',
     html,
     text: `Thank you for contacting Manavta Agro Foods. Reference: ${enquiry.referenceId}. We will review your requirements during published working hours. ${BUSINESS.name}, ${BUSINESS.address}, ${BUSINESS.email}`
@@ -82,6 +83,7 @@ export function adminEmail(enquiry) {
 
   return {
     to: env.adminEmail,
+    replyTo: enquiry.email,
     subject: `New Manavta Enquiry — ${enquiry.productName} — ${enquiry.referenceId}`,
     html,
     text: `NEW ENQUIRY
@@ -143,7 +145,7 @@ export async function sendMail(message, idempotencyKey) {
     const result = await transporter.sendMail({
       from: env.mailFrom,
       to: message.to,
-      replyTo: env.adminEmail,
+      replyTo: message.replyTo || env.adminEmail,
       subject: message.subject,
       html: message.html,
       text: message.text,
@@ -156,7 +158,7 @@ export async function sendMail(message, idempotencyKey) {
       level: 'info',
       event: 'email_sent',
       provider: 'gmail',
-      to: message.to,
+      recipientDomain: String(message.to || '').split('@').pop(),
       messageId: result.messageId || null
     }));
 
@@ -169,11 +171,10 @@ export async function sendMail(message, idempotencyKey) {
       level: 'error',
       event: 'email_send_failed',
       provider: 'gmail',
-      to: message.to,
+      recipientDomain: String(message.to || '').split('@').pop(),
       code: error?.code || null,
       responseCode: error?.responseCode || null,
-      response: error?.response || null,
-      message: error?.message || 'Email send failed'
+      message: 'Email send failed; inspect provider code and responseCode.'
     }));
     throw error;
   }

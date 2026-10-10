@@ -24,8 +24,8 @@
     setTimeout(() => { initReveal(); initCounters(); }, 50);
   };
 
-  window.toggleMenu = function() { mobileMenu.classList.toggle('open'); };
-  window.closeMenu = function() { mobileMenu.classList.remove('open'); };
+  window.toggleMenu = function() { const open=mobileMenu.classList.toggle('open'); document.querySelector('.hamburger')?.setAttribute('aria-expanded',String(open)); };
+  window.closeMenu = function() { mobileMenu.classList.remove('open'); document.querySelector('.hamburger')?.setAttribute('aria-expanded','false'); };
 
   function routeFromHash() {
     const id = location.hash.replace('#','');
@@ -81,10 +81,46 @@ const API_BASE = (
   const analyticsId = import.meta.env.VITE_GA4_MEASUREMENT_ID || import.meta.env.VITE_GA4_ID;
   const siteUrl = import.meta.env.VITE_SITE_URL;
   if (siteUrl) { const canonical=document.querySelector('[data-canonical]'); if(canonical) canonical.href=siteUrl; }
-  if (analyticsId) {
+
+  // Privacy-first consent: optional analytics is not loaded until the visitor opts in.
+  const CONSENT_KEY = 'ma_cookie_consent_v1';
+  const consentBanner = document.getElementById('cookieConsent');
+  const consentDialog = document.getElementById('cookieSettings');
+  const analyticsToggle = document.getElementById('cookieAnalyticsToggle');
+  let analyticsLoaded = false;
+  function readConsent() {
+    try { const value=JSON.parse(localStorage.getItem(CONSENT_KEY)||'null'); return value && value.version===1 ? value : null; }
+    catch { return null; }
+  }
+  function loadAnalyticsIfConsented(consent) {
+    if (!analyticsId || !consent?.analytics || analyticsLoaded) return;
+    analyticsLoaded = true;
     const s=document.createElement('script'); s.async=true; s.src=`https://www.googletagmanager.com/gtag/js?id=${encodeURIComponent(analyticsId)}`; document.head.appendChild(s);
     window.dataLayer=window.dataLayer||[]; window.gtag=function(){window.dataLayer.push(arguments)}; window.gtag('js',new Date()); window.gtag('config',analyticsId,{anonymize_ip:true});
   }
+  function saveConsent(analytics) {
+    const consent={version:1,necessary:true,analytics:Boolean(analytics),updatedAt:new Date().toISOString()};
+    try { localStorage.setItem(CONSENT_KEY,JSON.stringify(consent)); } catch { /* consent remains session-only if storage is unavailable */ }
+    if (consentBanner) consentBanner.hidden=true;
+    if (consentDialog) { consentDialog.hidden=true; document.body.classList.remove('cookie-settings-open'); }
+    loadAnalyticsIfConsented(consent);
+    return consent;
+  }
+  function openCookieSettings() {
+    if (!consentDialog) return;
+    const current=readConsent(); if (analyticsToggle) analyticsToggle.checked=Boolean(current?.analytics);
+    consentDialog.hidden=false; document.body.classList.add('cookie-settings-open');
+    document.getElementById('cookieSettingsClose')?.focus();
+  }
+  document.getElementById('cookieAcceptAll')?.addEventListener('click',()=>saveConsent(true));
+  document.getElementById('cookieEssentialOnly')?.addEventListener('click',()=>saveConsent(false));
+  document.getElementById('cookieCustomize')?.addEventListener('click',openCookieSettings);
+  document.getElementById('cookieSettingsClose')?.addEventListener('click',()=>{if(consentDialog)consentDialog.hidden=true;document.body.classList.remove('cookie-settings-open');});
+  document.getElementById('cookieSavePreferences')?.addEventListener('click',()=>saveConsent(Boolean(analyticsToggle?.checked)));
+  document.querySelectorAll('[data-open-cookie-settings]').forEach(link=>link.addEventListener('click',event=>{event.preventDefault();openCookieSettings();}));
+  const storedConsent=readConsent();
+  if (storedConsent) { if(consentBanner) consentBanner.hidden=true; loadAnalyticsIfConsented(storedConsent); }
+  else if(consentBanner) consentBanner.hidden=false;
 
 
   // Product catalogue: API-backed with graceful static fallback.
@@ -216,9 +252,12 @@ const API_BASE = (
   // Navigation + scroll polish.
   const progress=document.getElementById('scrollProgress');
   window.addEventListener('scroll',()=>{const h=document.documentElement.scrollHeight-innerHeight; if(progress)progress.style.width=`${h>0?(scrollY/h)*100:0}%`},{passive:true});
-  window.addEventListener('online',()=>document.getElementById('offlineBar')?.classList.remove('show'));
-  window.addEventListener('offline',()=>document.getElementById('offlineBar')?.classList.add('show'));
-  if(navigator.onLine===false)document.getElementById('offlineBar')?.classList.add('show');
+  // navigator.onLine is only a connectivity hint; keep the notice hidden while online.
+  const offlineBar=document.getElementById('offlineBar');
+  const syncNetworkNotice=()=>{ if(!offlineBar)return; offlineBar.classList.toggle('show',navigator.onLine===false); };
+  window.addEventListener('online',syncNetworkNotice);
+  window.addEventListener('offline',syncNetworkNotice);
+  syncNetworkNotice();
 
   // PWA installation.
   let deferredPrompt=null;

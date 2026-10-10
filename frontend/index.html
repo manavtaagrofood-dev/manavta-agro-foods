@@ -4,7 +4,8 @@
 <meta charset="UTF-8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
 <title>Manavta Agro Foods — Commercial Rice Processing, Punjab</title>
-<meta name="description" content="Manavta Agro Foods — commercial rice processing mill in Rureke Kalan, Barnala, Punjab, focused on bulk parboiled rice and seasonal contract milling."/>
+<meta name="description" content="Explore Manavta Agro Foods commercial rice processing in Barnala, Punjab. Bulk parboiled rice, PR 114, PR 126, selected Basmati contract milling and 25–50 kg bulk packaging."/>
+<meta name="keywords" content="parboiled rice mill Punjab, PR 114 rice, PR 126 rice, bulk rice supplier, rice milling Barnala, Basmati contract milling"/>
 <meta name="theme-color" content="#0D3320"/>
 <meta name="api-base" content="/api"/>
 <meta name="robots" content="index,follow"/>
@@ -18,12 +19,13 @@
 <link rel="preconnect" href="https://fonts.googleapis.com"/>
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&family=Inter:wght@300;400;500;600&family=Cormorant+Garamond:wght@300;400;600&display=swap" rel="stylesheet"/>
 <link rel="stylesheet" href="/src/site.css">
+<link rel="stylesheet" href="/src/legal.css">
 <script type="application/ld+json">{"@context":"https://schema.org","@type":"Organization","name":"Manavta Agro Foods","foundingDate":"2016","email":"mailto:manavtaagrofood@gmail.com","taxID":"03AIOPK0032A1Z4","address":{"@type":"PostalAddress","streetAddress":"Tajoke Road, Rureke Kalan","addressLocality":"District Barnala","addressRegion":"Punjab","addressCountry":"IN"}}</script>
 </head>
 <body>
 
 <div class="scroll-progress" id="scrollProgress" aria-hidden="true"></div>
-<div class="offline-bar" id="offlineBar" role="status">You're viewing the site offline. Some enquiry features may be unavailable.</div>
+<div class="offline-bar" id="offlineBar" role="status" aria-live="polite">You appear to be offline. Your enquiry will need an internet connection to submit.</div>
 <div class="toast-stack" id="toastStack" aria-live="polite" aria-atomic="false"></div>
 <div class="install-card" id="installCard">
   <strong>Install Manavta Agro Foods</strong>
@@ -51,11 +53,7 @@
 <nav id="nav" class="top" aria-label="Primary navigation">
   <div class="nav-inner">
     <a class="nav-logo" href="#home" onclick="showPage('home'); return false;" aria-label="Manavta Agro Foods home">
-      <img class="brand-logo-img" src="images/manavta-logo.svg" alt="Manavta Agro Foods logo">
-      <div class="nav-logo-text">
-        <span class="nav-logo-name">Manavta Agro Foods</span>
-        <span class="nav-logo-sub">Est. 2016 · Punjab, India</span>
-      </div>
+      <img class="brand-logo-img" src="images/manavta-logo.svg" alt="Manavta Agro Foods — Rice Processing, Punjab, India" width="420" height="120" fetchpriority="high">
     </a>
     <div class="nav-links">
       <button class="nav-link active" onclick="showPage('home',this)">Home</button>
@@ -64,7 +62,7 @@
       <button class="nav-link" onclick="showPage('exports',this)">Supply Model</button>
       <button class="nav-link nav-cta" onclick="showPage('contact',this)">Get a Quote</button>
     </div>
-    <button class="hamburger" onclick="toggleMenu()" aria-label="Menu">
+    <button class="hamburger" onclick="toggleMenu()" aria-label="Menu" aria-controls="mobileMenu" aria-expanded="false">
       <span></span><span></span><span></span>
     </button>
   </div>
@@ -166,6 +164,14 @@
         <img src="images/brown.webp" alt="Brown basmati rice" loading="lazy" decoding="async">
         <div class="discovery-copy"><div class="discovery-kicker">Specialty Selection</div><div class="discovery-title">Brown & Specialty</div><span class="discovery-link">Explore range →</span></div>
       </article>
+    </div>
+    <div class="catalogue-cta reveal">
+      <div class="catalogue-cta-copy">
+        <span class="catalogue-eyebrow">Buyer resource</span>
+        <h3>Need the range at a glance?</h3>
+        <p>Download the product overview, review the key specifications and share your requirements with our team.</p>
+      </div>
+      <a class="catalogue-download" href="/downloads/manavta-commercial-rice-catalogue.pdf" download>Download Product Catalogue <span aria-hidden="true">↓</span></a>
     </div>
   </div>
 </section>
@@ -363,6 +369,10 @@
       <button type="button" class="filter-btn" data-filter="custom">Custom Contract</button>
       <button type="button" class="filter-btn" data-filter="sella">Parboiled</button>
     </div>
+    <div class="catalogue-inline reveal">
+      <div><strong>Prefer a document?</strong><span>Download the commercial rice catalogue for your procurement review.</span></div>
+      <a href="/downloads/manavta-commercial-rice-catalogue.pdf" download>Download catalogue ↗</a>
+    </div>
     <div class="product-tools reveal">
       <span id="product-count" class="product-count" aria-live="polite"></span>
       <div class="product-search-wrap">
@@ -551,7 +561,7 @@
   <div class="container">
     <div class="footer-inner">
       <div class="footer-brand">
-        <div class="footer-logo"><img class="brand-logo-img footer-logo-img" src="images/manavta-logo.svg" alt="Manavta Agro Foods logo"><div class="fl-name">Manavta Agro Foods</div></div>
+        <div class="footer-logo"><img class="brand-logo-img footer-logo-img" src="images/manavta-logo.svg" alt="Manavta Agro Foods — Rice Processing, Punjab, India" width="420" height="120" loading="lazy"></div>
         <p class="footer-desc">Commercial rice processing mill established in 2016 at Rureke Kalan, District Barnala, Punjab. Focused on bulk parboiled rice and buyer-specific contracts.</p>
         <!-- <div class="footer-social">
           <div class="fs-btn">💼</div>
@@ -582,10 +592,27 @@
     </div>
     <div class="footer-bottom">
       <div class="footer-copy">© 2026 <span>Manavta Agro Foods</span>. All Rights Reserved.</div>
+      <nav class="footer-legal" aria-label="Legal links"><a href="/privacy-policy.html">Privacy Policy</a><a href="/terms-and-conditions.html">Terms</a><a href="/shipping-policy.html">Shipping</a><a href="/cookie-policy.html">Cookie Policy</a><a href="#cookie-settings" data-open-cookie-settings>Cookie Settings</a><a href="/downloads/manavta-commercial-rice-catalogue.pdf">Product Catalogue</a></nav>
     </div>
   </div>
 </footer>
 
+
+<!-- Cookie notice: essential storage only by default; analytics requires opt-in. -->
+<section id="cookieConsent" class="cookie-consent" role="dialog" aria-modal="false" aria-labelledby="cookieConsentTitle" hidden>
+  <div class="cookie-consent-copy"><span class="cookie-eyebrow">YOUR PRIVACY</span><h2 id="cookieConsentTitle">Your cookie choices</h2><p>We use essential browser storage to keep the website and enquiry form working. With your permission, we may also use analytics to understand website visits. Read our <a href="/cookie-policy.html">Cookie Policy</a> and <a href="/privacy-policy.html">Privacy Policy</a>.</p></div>
+  <div class="cookie-consent-actions"><button type="button" id="cookieAcceptAll" class="cookie-btn cookie-btn-primary">Accept all</button><button type="button" id="cookieEssentialOnly" class="cookie-btn">Essential only</button><button type="button" id="cookieCustomize" class="cookie-text-btn">Customize</button></div>
+</section>
+<div id="cookieSettings" class="cookie-settings-backdrop" hidden>
+  <section class="cookie-settings-panel" role="dialog" aria-modal="true" aria-labelledby="cookieSettingsTitle" aria-describedby="cookieSettingsDescription">
+    <button type="button" id="cookieSettingsClose" class="cookie-settings-close" aria-label="Close cookie settings">×</button>
+    <span class="cookie-eyebrow">PRIVACY PREFERENCES</span><h2 id="cookieSettingsTitle">Manage cookie settings</h2>
+    <p id="cookieSettingsDescription">Choose whether to allow optional analytics. Your choice is saved in this browser and can be changed at any time from the Cookie Settings link in the footer.</p>
+    <div class="cookie-choice-row"><div><strong>Essential storage</strong><p>Required for core website features, security and remembering your cookie choice. These cannot be switched off here.</p></div><span class="cookie-always-on">Always on</span></div>
+    <label class="cookie-choice-row cookie-analytics-choice" for="cookieAnalyticsToggle"><span><strong>Analytics</strong><p>Allows Google Analytics to load only if an analytics measurement ID is configured and you opt in.</p></span><input id="cookieAnalyticsToggle" type="checkbox"></label>
+    <div class="cookie-settings-actions"><button type="button" id="cookieSavePreferences" class="cookie-btn cookie-btn-primary">Save my choices</button><a href="/cookie-policy.html">Read Cookie Policy</a></div>
+  </section>
+</div>
 
 <div class="mobile-actions" aria-label="Quick actions"><button type="button" onclick="showPage('contact')" aria-label="Request a quote">Request Quote</button></div>
 <button id="back-top" onclick="window.scrollTo({top:0,behavior:'smooth'})" aria-label="Back to top">↑</button>
